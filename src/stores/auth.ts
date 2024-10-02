@@ -5,7 +5,8 @@ import axios from 'axios'
 export const useAuthStore = defineStore({
     id: 'auth',
     state: () => ({
-      userName:''
+      userName:'',
+      userRole:''
     }),
     actions: {
         login(){

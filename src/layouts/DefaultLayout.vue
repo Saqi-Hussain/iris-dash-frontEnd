@@ -1,13 +1,17 @@
 <script setup lang="ts">
 import HeaderArea from '@/components/Header/HeaderArea.vue'
 import SidebarArea from '@/components/Sidebar/SidebarArea.vue'
+import SidebarAreaAdmin from '@/components/Sidebar/SidebarAreaAdmin.vue';
+import { useAuthStore } from '@/stores/auth';
 </script>
 
 <template>
   <!-- ===== Page Wrapper Start ===== -->
   <div class="flex h-screen overflow-hidden">
     <!-- ===== Sidebar Start ===== -->
-    <SidebarArea />
+
+    <SidebarAreaAdmin v-if="useAuthStore().userRole === 'admin'"/>
+    <SidebarArea v-else/>
     <!-- ===== Sidebar End ===== -->
 
     <!-- ===== Content Area Start ===== -->

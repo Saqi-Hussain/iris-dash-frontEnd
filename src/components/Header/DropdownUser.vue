@@ -19,6 +19,9 @@ const dropdownOpen = ref(false)
 onClickOutside(target, () => {
   dropdownOpen.value = false
 })
+
+
+
 </script>
 
 <template>
@@ -32,7 +35,7 @@ onClickOutside(target, () => {
          <img src="@/assets/images/user/user-01.png" width="35"  alt="User" />
        </span>
        <span class="cursor-default">
-        hello, {{ useAuthStore().userName }}
+        Hello, {{  useAuthStore().userName }}
        </span>
        <svg :class="dropdownOpen && 'rotate-180'" class="hidden fill-current sm:block" width="12" height="8"
          viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -44,7 +47,7 @@ onClickOutside(target, () => {
      <!-- Dropdown Start -->
      <div v-show="dropdownOpen"
        class="absolute right-0 mt-4 flex w-62.5 flex-col rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
-       <!-- <ul class="flex flex-col gap-5 border-b border-stroke px-6 py-7.5 dark:border-strokedark">
+       <ul class="flex flex-col gap-5 border-b border-stroke px-6 py-7.5 dark:border-strokedark">
          <li>
            <router-link to="/profile"
              class="flex items-center gap-3.5 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base">
@@ -60,7 +63,7 @@ onClickOutside(target, () => {
              My Profile
            </router-link>
          </li>
-         <li>
+         <!-- <li>
            <router-link to="#"
              class="flex items-center gap-3.5 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base">
              <svg class="fill-current" width="22" height="22" viewBox="0 0 22 22" fill="none"
@@ -71,7 +74,7 @@ onClickOutside(target, () => {
              </svg>
              My Contacts
            </router-link>
-         </li>
+         </li> -->
          <li>
            <router-link to="/pages/settings"
              class="flex items-center gap-3.5 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base">
@@ -87,7 +90,7 @@ onClickOutside(target, () => {
              Account Settings
            </router-link>
          </li>
-       </ul> -->
+       </ul>
        <button
          class="flex items-center gap-3.5 py-4 px-6 text-sm font-medium duration-300 ease-in-out hover:bg-[#465985] hover:text-white lg:text-base"
          @click="logout">

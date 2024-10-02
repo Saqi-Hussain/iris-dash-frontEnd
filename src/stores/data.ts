@@ -148,12 +148,12 @@ export const useDataStore = defineStore({
         this.originalData = [...response.data] // Store original data
         this.filteredData = this.data // Initialize filteredData with all data
         this.getOverallTop2ArrayByDate()
-        console.log(this.data) // Log the fetched data
+        // console.log(this.data) // Log the fetched data
         // console.log(this.staff_interaction_highly)
         this.applyFilters()
         this.loader = true
       } catch (error) {
-        console.error('Error fetching data:', error)
+        // console.error('Error fetching data:', error)
       }
     },
     applyFilters() {
@@ -211,7 +211,7 @@ export const useDataStore = defineStore({
 
       this.updateStatistics()
       this.data_array = [...this.getOverallTop2ArrayByDate()]
-      console.log('data.ts', this.data_array)
+      // console.log('data.ts', this.data_array)
       this.updateTop5Array()
     },
     updateStatistics() {
@@ -240,16 +240,16 @@ export const useDataStore = defineStore({
       const oldCus = this.filteredData.filter((item) => item.existing_customers === '2').length
       this.old_customer = total ? Math.round((oldCus / this.account_holder_count) * 100) : 0
       this.new_customer = total ? Math.round((newCus / this.account_holder_count) * 100) : 0
-      console.log(
-        'newCus',
-        newCus,
-        'oldCus',
-        oldCus,
-        'total',
-        total,
-        'account_holder',
-        accountHolder
-      )
+      // console.log(
+      //   'newCus',
+      //   newCus,
+      //   'oldCus',
+      //   oldCus,
+      //   'total',
+      //   total,
+      //   'account_holder',
+      //   accountHolder
+      // )
 
       // console.log('newCus', newCus, 'oldCus', oldCus)
 
@@ -268,14 +268,14 @@ export const useDataStore = defineStore({
       this.branch_Islamabad = total ? Math.round((branchIslamabad / total) * 100) : 0
       this.branch_Karachi = total ? Math.round((branchKarachi / total) * 100) : 0
 
-      console.log(
-        'branchLahore',
-        branchLahore,
-        'branchIslamabad',
-        branchIslamabad,
-        'branchKarachi',
-        branchKarachi
-      )
+      // console.log(
+      //   'branchLahore',
+      //   branchLahore,
+      //   'branchIslamabad',
+      //   branchIslamabad,
+      //   'branchKarachi',
+      //   branchKarachi
+      // )
 
       const withdraw = this.filteredData.filter((item) => item.widrawing_money === 'Yes').length
       this.withdrawal = total ? Math.round((withdraw / total) * 100) : 0
@@ -453,31 +453,31 @@ export const useDataStore = defineStore({
 
       this.more_then_60 = total ? Math.round((more_then_60 / total) * 100) : 0
 
-      console.log(
-        'less_then_10',
-        this.less_then_10,
-        'bt_10_15',
-        this.bt_10_15,
-        'bt_15_20',
-        this.bt_15_20,
-        'bt_20_25',
-        this.bt_20_25,
-        'bt_25_30',
-        this.bt_25_30,
-        'bt_30_45',
-        this.bt_30_45,
-        'bt_45_60',
-        this.bt_45_60,
-        'more_then_60',
-        this.more_then_60
-      )
+      // console.log(
+      //   'less_then_10',
+      //   this.less_then_10,
+      //   'bt_10_15',
+      //   this.bt_10_15,
+      //   'bt_15_20',
+      //   this.bt_15_20,
+      //   'bt_20_25',
+      //   this.bt_20_25,
+      //   'bt_25_30',
+      //   this.bt_25_30,
+      //   'bt_30_45',
+      //   this.bt_30_45,
+      //   'bt_45_60',
+      //   this.bt_45_60,
+      //   'more_then_60',
+      //   this.more_then_60
+      // )
 
       // staff_interaction - Top 2 boxes
       const staff_interaction_highly = this.filteredData.filter(
         (item) => item.staff_interaction == 'Highly satisfied'
       ).length
 
-      console.log('staff Count highly = ', staff_interaction_highly)
+      // console.log('staff Count highly = ', staff_interaction_highly)
       this.staff_interaction_highly = total
         ? Math.round((staff_interaction_highly / total) * 100)
         : 0
@@ -488,7 +488,7 @@ export const useDataStore = defineStore({
         (item) => item.staff_interaction == 'Somewhat Satisfied'
       ).length
 
-      console.log('staff Count high= ', staff_interaction_high)
+      // console.log('staff Count high= ', staff_interaction_high)
       this.staff_interaction_high = total ? Math.round((staff_interaction_high / total) * 100) : 0
 
       // console.log('Percentage = ', this.staff_interaction_high, '%')
@@ -507,7 +507,7 @@ export const useDataStore = defineStore({
         (item) => item.purpose_of_visit == 'Highly satisfied'
       ).length
 
-      console.log('purpose_of_visit_high Count = ', purpose_of_visit_high)
+      // console.log('purpose_of_visit_high Count = ', purpose_of_visit_high)
       this.purpose_of_visit_high = total ? Math.round((purpose_of_visit_high / total) * 100) : 0
 
       // console.log('purpose_of_visit_high Percentage = ', this.purpose_of_visit_high, '%')
@@ -516,19 +516,19 @@ export const useDataStore = defineStore({
         (item) => item.purpose_of_visit == 'Somewhat Satisfied'
       ).length
 
-      console.log('purpose_of_visit_highly Count = ', purpose_of_visit_highly)
+      // console.log('purpose_of_visit_highly Count = ', purpose_of_visit_highly)
       this.purpose_of_visit_highly = total ? Math.round((purpose_of_visit_highly / total) * 100) : 0
 
       //console.log('purpose_of_visit_highly Percentage = ', this.purpose_of_visit_highly, '%')
-      console.log('purpose of visit total count =', purpose_of_visit_high + purpose_of_visit_highly)
+      // console.log('purpose of visit total count =', purpose_of_visit_high + purpose_of_visit_highly)
 
       // this.purpose_of_visit_top2 = this.purpose_of_visit_high + this.purpose_of_visit_highly
 
       const total_count = purpose_of_visit_high + purpose_of_visit_highly
-      console.log('total count =', total_count)
+      // console.log('total count =', total_count)
 
       this.purpose_of_visit_top2 = Math.round((total_count / total) * 100)
-      console.log('top 2 boxes =', this.purpose_of_visit_top2, '%')
+      // console.log('top 2 boxes =', this.purpose_of_visit_top2, '%')
 
       // turn_around_time - Top 2 boxes
 
@@ -536,7 +536,7 @@ export const useDataStore = defineStore({
         (item) => item.turn_around_time == 'Highly satisfied'
       ).length
 
-      console.log('Turn around time Count high = ', turn_around_time_high)
+      // console.log('Turn around time Count high = ', turn_around_time_high)
       this.turn_around_time_high = total ? Math.round((turn_around_time_high / total) * 100) : 0
 
       //console.log('Turn around time Percentage high = ', this.turn_around_time_high, '%')
@@ -545,7 +545,7 @@ export const useDataStore = defineStore({
         (item) => item.turn_around_time == 'Somewhat Satisfied'
       ).length
 
-      console.log('Turn around time Count highly = ', turn_around_time_highly)
+      // console.log('Turn around time Count highly = ', turn_around_time_highly)
       this.turn_around_time_highly = total ? Math.round((turn_around_time_highly / total) * 100) : 0
 
       //console.log('Turn around time Percentage highly = ', this.turn_around_time_highly, '%')
@@ -560,9 +560,9 @@ export const useDataStore = defineStore({
       const over_all_high = this.filteredData.filter(
         (item) => item.over_all_satisfactory == 'Highly satisfied'
       ).length
-      console.log('Overall high Count= ', over_all_high)
+      // console.log('Overall high Count= ', over_all_high)
 
-      console.log('Overall high Count= ', over_all_high)
+      // console.log('Overall high Count= ', over_all_high)
       // this.overAll_high = total ? Math.round((over_all_high / total) * 100) : 0
       // this.overAll_high = total ? Math.round((over_all_high / total) * 100) : 0
 
@@ -571,9 +571,9 @@ export const useDataStore = defineStore({
       const over_all_highly = this.filteredData.filter(
         (item) => item.over_all_satisfactory == 'Somewhat Satisfied'
       ).length
-      console.log('Overall highly Count= ', over_all_highly)
+      // console.log('Overall highly Count= ', over_all_highly)
 
-      console.log('guage total count =', over_all_highly + over_all_high)
+      // console.log('guage total count =', over_all_highly + over_all_high)
 
       //console.log('Overall highly Count= ', over_all_highly)
       this.overAll_highly = total ? Math.round((over_all_highly / total) * 100) : 0
@@ -583,7 +583,7 @@ export const useDataStore = defineStore({
       // this.overAll_top2 = this.overAll_high + this.overAll_highly
       this.overAll_top2 = total ? Math.round((total_overAll_count / total) * 100) : 0
 
-      console.log('guage = ', this.overAll_top2)
+      // console.log('guage = ', this.overAll_top2)
 
       //console.log('Top 2 Boxes = ', this.overAll_top2, '%')
     },
@@ -621,7 +621,7 @@ export const useDataStore = defineStore({
           new Date(a.date).getTime() - new Date(b.date).getTime()
       )
 
-      console.log('data.ts', this.data_array)
+      // console.log('data.ts', this.data_array)
       return this.data_array
     },
 
@@ -670,7 +670,7 @@ export const useDataStore = defineStore({
       this.applyFilters()
     },
     setBranch(branch: string) {
-      console.log('set branch', branch)
+      // console.log('set branch', branch)
       this.filters.branch = branch
       this.applyFilters()
     },
@@ -702,7 +702,7 @@ export const useDataStore = defineStore({
         'Credit card payment': this.credit_card_payment
       }
 
-      console.log(stats)
+      // console.log(stats)
 
       // Filter out the categories with a value of zero
       const filteredStats = Object.entries(stats).filter(([key, value]) => value > 0)
@@ -714,7 +714,7 @@ export const useDataStore = defineStore({
       // Update the top5Array
       this.top5Array = top5Stats.map(([key, value]) => ({ x: key, y: value }))
 
-      console.log('top5Array', this.top5Array)
+      // console.log('top5Array', this.top5Array)
     },
 
     clearFilters() {

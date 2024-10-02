@@ -8,9 +8,23 @@ import "vue-toastification/dist/index.css";
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 import VueApexCharts from 'vue3-apexcharts'
+// @ts-ignore
+import NProgress from 'nprogress';
 
+import 'nprogress/nprogress.css'; // Import NProgress styles
 import App from './App.vue'
 import router from './router'
+
+
+// Set up router hooks for starting and stopping NProgress
+router.beforeEach((to, from, next) => {
+    NProgress.start(); // Start the progress bar before navigating to a new route
+    next();
+  });
+  
+  router.afterEach(() => {
+    NProgress.done(); // Finish the progress bar when the navigation is complete
+  });
 
 const app = createApp(App)
 
