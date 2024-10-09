@@ -16,7 +16,7 @@ import { useAuthStore } from '@/stores/auth'
 
 
 console.log(useAuthStore().userName);
-
+useAuthStore().fetchImg();
 
 const dataStore = useDataStore()
 dataStore.fetchData() // Fetch and initialize data

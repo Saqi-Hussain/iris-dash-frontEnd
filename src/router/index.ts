@@ -220,7 +220,7 @@ const routes = [
     meta: {
       title: 'Profile',
       requiresAuth: true,
-      // requiresAdmin: true // Only admin can access
+      requiresAdmin: true // Only admin can access
     }
   },
   {
@@ -254,13 +254,13 @@ const routes = [
     }
   },
   {
-    path: '/pages/settings',
+    path: '/account/settings',
     name: 'settings',
     component: SettingsView,
     meta: {
       title: 'Settings',
       requiresAuth: true,
-      requiresAdmin: true // Only admin can access
+      // requiresAdmin: true // Only admin can access
     }
   },
   {
@@ -319,8 +319,12 @@ router.beforeEach((to, from, next) => {
   const user = localStorage.getItem('user');
   const userRole = user ? JSON.parse(user)?.role : null;
   const userName = user ? JSON.parse(user)?.name : null;
+  const userEmail = user ? JSON.parse(user)?.email : null;
+  const userId = user ? JSON.parse(user)?.id : null;
   useAuthStore().userRole = userRole;
   useAuthStore().userName = userName;
+  useAuthStore().userEmail = userEmail;
+  useAuthStore().userId = userId;
 
   if (to.matched.some(record => record.meta.requiresAuth)) {
     if (!loggedIn) {

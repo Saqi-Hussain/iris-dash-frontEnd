@@ -1,25 +1,45 @@
 <script setup lang="ts">
 import { onClickOutside } from '@vueuse/core'
-import { ref } from 'vue'
+import { ref,onMounted } from 'vue'
 import { useRouter } from 'vue-router';
 import { useAuthStore } from '@/stores/auth';
+// import axios from 'axios';
 
 const router = useRouter();
+// const authStore = useAuthStore();
 
 const logout = () => {
-  // Clear user information from local storage
-  localStorage.removeItem('user'); // or any other user token you might be using
-
-  // Redirect to the sign-in page
+  localStorage.removeItem('user');
   router.push({ name: 'signin' });
 };
-const target = ref(null)
-const dropdownOpen = ref(false)
+
+const target = ref(null);
+const dropdownOpen = ref(false);
 
 onClickOutside(target, () => {
-  dropdownOpen.value = false
-})
+  dropdownOpen.value = false;
+});
 
+// const userAvatar = ref<string | null>(null);
+
+// onMounted(async () => {
+//   try {
+//     const response = await axios.post(`${import.meta.env.VITE_APP_ENDPOINT}api/user-profile`, {
+//       user_id: authStore.userId
+//     });
+// console.log('response status = ',response.status);
+
+//     if (response.status === 200) {
+//       console.log('response data avatar_link = ',response.data.avatar_link);
+//       userAvatar.value = response.data.avatar_link;
+//       userAvatar.value = `http://127.0.0.1:8000${response.data.avatar_link}`;
+//     } else {
+//       console.error('Failed to fetch user profile:', response);
+//     }
+//   } catch (error) {
+//     console.error('Error fetching user profile', error);
+//   }
+// });
 
 
 </script>
@@ -32,7 +52,8 @@ onClickOutside(target, () => {
    <div class="relative " ref="target" @click.prevent="dropdownOpen = !dropdownOpen">
      <div class="flex flex-row-reverse items-center justify-center gap-2">
        <span class="rounded-full" >
-         <img src="@/assets/images/user/user-01.png" width="35"  alt="User" />
+        <img v-if="useAuthStore().userAvatar" :src="useAuthStore().userAvatar" width="35" alt="User" />
+        <!-- <img v-else src="/default-avatar.png" width="35" alt="Default Avatar" /> -->
        </span>
        <span class="cursor-default">
         Hello, {{  useAuthStore().userName }}
@@ -47,8 +68,8 @@ onClickOutside(target, () => {
      <!-- Dropdown Start -->
      <div v-show="dropdownOpen"
        class="absolute right-0 mt-4 flex w-62.5 flex-col rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
-       <ul class="flex flex-col gap-5 border-b border-stroke px-6 py-7.5 dark:border-strokedark">
-         <li>
+       <ul class="flex flex-col gap-5 border-b border-stroke  dark:border-strokedark">
+         <!-- <li>
            <router-link to="/profile"
              class="flex items-center gap-3.5 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base">
              <svg class="fill-current" width="22" height="22" viewBox="0 0 22 22" fill="none"
@@ -62,7 +83,7 @@ onClickOutside(target, () => {
              </svg>
              My Profile
            </router-link>
-         </li>
+         </li> -->
          <!-- <li>
            <router-link to="#"
              class="flex items-center gap-3.5 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base">
@@ -76,8 +97,8 @@ onClickOutside(target, () => {
            </router-link>
          </li> -->
          <li>
-           <router-link to="/pages/settings"
-             class="flex items-center gap-3.5 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base">
+           <router-link to="account/settings"
+             class=" flex items-center px-6 py-5 gap-3.5 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base">
              <svg class="fill-current" width="22" height="22" viewBox="0 0 22 22" fill="none"
                xmlns="http://www.w3.org/2000/svg">
                <path

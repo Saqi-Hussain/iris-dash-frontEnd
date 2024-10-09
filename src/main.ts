@@ -10,10 +10,11 @@ import { createPinia } from 'pinia'
 import VueApexCharts from 'vue3-apexcharts'
 // @ts-ignore
 import NProgress from 'nprogress';
-
+import Antd from 'ant-design-vue';
 import 'nprogress/nprogress.css'; // Import NProgress styles
 import App from './App.vue'
 import router from './router'
+import 'ant-design-vue/dist/reset.css';
 
 
 // Set up router hooks for starting and stopping NProgress
@@ -27,7 +28,7 @@ router.beforeEach((to, from, next) => {
   });
 
 const app = createApp(App)
-
+app.use(Antd)
 app.use(createPinia())
 app.use(router)
 app.use(VueApexCharts)

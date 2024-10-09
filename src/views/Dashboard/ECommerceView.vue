@@ -12,10 +12,11 @@ import GradientPirChart from '@/components/Charts/ApexCharts/GradientPirChart.vu
 import CustomDropdown from '@/components/DropDown/DropDown.vue'
 import { ref } from 'vue'
 import VBarChart from '@/components/Charts/ApexCharts/VBarChart.vue'
-
+import { useAuthStore } from '@/stores/auth'
 
 const dataStore = useDataStore()
 dataStore.fetchData() // Fetch and initialize data
+useAuthStore().fetchImg();
 
 const city = ref('Choose a city')
 const branch = ref('Choose a branch')

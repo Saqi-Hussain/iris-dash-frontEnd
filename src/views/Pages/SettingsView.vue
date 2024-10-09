@@ -4,7 +4,7 @@ import BreadcrumbDefault from '@/components/Breadcrumbs/BreadcrumbDefault.vue'
 import SettingsCard from '@/components/SettingsCard.vue'
 import DefaultLayout from '@/layouts/DefaultLayout.vue'
 
-const pageTitle = ref('Settings Page')
+const pageTitle = ref('Account Setting')
 </script>
 
 <template>
