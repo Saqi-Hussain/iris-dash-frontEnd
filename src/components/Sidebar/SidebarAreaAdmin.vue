@@ -289,13 +289,46 @@ const menuGroups = ref([
         ]
       }
     ]
+  },
+  {
+    name: 'ADMINISTRATION',
+    menuItems: [
+      {
+        icon: `
+    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" {...props}><path fill="currentColor" d="M6.5 20q-2.275 0-3.887-1.575T1 14.575q0-1.95 1.175-3.475T5.25 9.15q.575-2.025 2.138-3.4T11 4.075v8.075l-.9-.875Q9.825 11 9.413 11t-.713.3q-.275.275-.275.7t.275.7l2.6 2.6q.3.3.7.3t.7-.3l2.6-2.6q.275-.275.287-.687T15.3 11.3q-.275-.275-.687-.288t-.713.263l-.9.875V4.075q2.575.35 4.288 2.313T19 11q1.725.2 2.863 1.488T23 15.5q0 1.875-1.312 3.188T18.5 20z"></path></svg>
+  
+`,
+        label: 'Import',
+        route: '/import'
+        // children: [
+        //   { label: 'Basic Chart', route: '/charts/basic-chart' },
+        //   { label: 'Apex Chart', route: '/charts/apex-chart' }
+        // ]
+      },
+      {
+        icon: `
+    
+
+    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" {...props}><path fill="currentColor" d="M11.025 21.95q-1.9-.2-3.537-1.037t-2.863-2.175T2.7 15.675T2 12q0-3.925 2.613-6.75t6.412-3.2v2.025q-2.975.375-5 2.613T4 12t2.025 5.313t5 2.612zm0-4.95v-6.175l-2.6 2.6L7.025 12l5-5l5 5l-1.425 1.4l-2.575-2.575V17zm2 4.95v-2.025q1.1-.125 2.088-.55t1.812-1.075l1.425 1.45q-1.125.9-2.475 1.475t-2.85.725M16.9 5.7q-.825-.65-1.8-1.075t-2.075-.55V2.05q1.5.15 2.85.725T18.35 4.25zm2.85 12.625L18.325 16.9q.65-.825 1.075-1.812T19.95 13h2.025q-.15 1.5-.737 2.85t-1.488 2.475m.2-7.325q-.125-1.1-.55-2.087T18.325 7.1l1.425-1.425q.9 1.125 1.488 2.475t.737 2.85z"></path></svg>
+
+  
+`,
+        label: 'Export',
+        route: '/Export'
+        // children: [
+        //   { label: 'Basic Chart', route: '/charts/basic-chart' },
+        //   { label: 'Apex Chart', route: '/charts/apex-chart' }
+        // ]
+      },
+      
+    ]
   }
 ])
 </script>
 
 <template>
   <aside
-    class="absolute left-0 top-0 z-9999 flex h-screen  flex-col overflow-y-hidden bg-slate-200 duration-300 ease-linear dark:bg-boxdark lg:static lg:translate-x-0 shadow-3"
+    class="absolute left-0 top-0 z-9999 flex h-screen flex-col overflow-y-hidden bg-slate-200 duration-300 ease-linear dark:bg-boxdark lg:static lg:translate-x-0 shadow-3"
     :class="{
       'translate-x-0': sidebarStore.isSidebarOpen,
       '-translate-x-full': !sidebarStore.isSidebarOpen
