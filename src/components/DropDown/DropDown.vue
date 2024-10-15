@@ -78,7 +78,7 @@ onUnmounted(() => {
   cursor: pointer;
   width: 100%;
   text-align: left;
-  font-size: 16px;
+  font-size: 15px;
   transition: border-color 0.2s ease-in-out;
   margin-top: 5px;
   text-wrap: none;

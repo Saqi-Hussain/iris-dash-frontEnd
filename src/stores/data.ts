@@ -54,6 +54,8 @@ interface TopCategoryItem {
 export const useDataStore = defineStore({
   id: 'data',
   state: () => ({
+    startDate: '2022-01-01',
+    endDate: '2022-12-31',
     color: '#455984',
     size: '15px',
     data: [] as DataItem[],
@@ -206,8 +208,32 @@ export const useDataStore = defineStore({
         filtered = filtered.filter((item) => item.branch === this.filters.branch)
       }
 
-      this.filteredData = filtered
+
+    
       // console.log('Filtered data:', this.filteredData) // Log the filtered data
+      // Add date filtering
+      if (this.startDate && this.endDate) {
+        const startDate = new Date(this.startDate);
+        const endDate = new Date(this.endDate);
+      
+        // Format the dates as year/month/day
+        const formattedStartDate = `${startDate.getFullYear()}/${startDate.getMonth() + 1}/${startDate.getDate()}`;
+        const formattedEndDate = `${endDate.getFullYear()}/${endDate.getMonth() + 1}/${endDate.getDate()}`;
+      
+         // Adjust the end date to include the entire day (up to 23:59:59)
+  endDate.setHours(23, 59, 59, 999);
+
+        console.log('Start date:', formattedStartDate, 'End date:', formattedEndDate);
+      
+        filtered = filtered.filter((item) => {
+          const itemDate = new Date(item.Date);
+
+          return itemDate >= startDate && itemDate <= endDate;
+        });
+      }
+      
+        this.filteredData = filtered
+      console.log('filtered data', this.filteredData);
 
       this.updateStatistics()
       this.data_array = [...this.getOverallTop2ArrayByDate()]
@@ -621,7 +647,7 @@ export const useDataStore = defineStore({
           new Date(a.date).getTime() - new Date(b.date).getTime()
       )
 
-      // console.log('data.ts', this.data_array)
+      console.log('data.ts', this.data_array)
       return this.data_array
     },
 
@@ -673,6 +699,13 @@ export const useDataStore = defineStore({
       // console.log('set branch', branch)
       this.filters.branch = branch
       this.applyFilters()
+    },
+    setDateRange(startDate: string, endDate: string) {
+      this.startDate = startDate;
+      this.endDate = endDate;
+      // console.log('startDate', startDate, 'endDate', endDate);
+      
+      this.applyFilters();
     },
     updateTop5Array() {
       const stats = {

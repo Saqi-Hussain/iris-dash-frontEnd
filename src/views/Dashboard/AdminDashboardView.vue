@@ -10,11 +10,13 @@ import TimelineChart from '@/components/Charts/ApexCharts/TimelineChart.vue'
 import Guage from '@/components/Charts/ECharts/Guage.vue'
 import GradientPirChart from '@/components/Charts/ApexCharts/GradientPirChart.vue'
 import CustomDropdown from '@/components/DropDown/DropDown.vue'
-import { ref } from 'vue'
+import { ref,onMounted } from 'vue'
 import VBarChart from '@/components/Charts/ApexCharts/VBarChart.vue'
 import { useAuthStore } from '@/stores/auth'
+import VueDatePicker from '@vuepic/vue-datepicker';
+import '@vuepic/vue-datepicker/dist/main.css'
 
-
+const date = ref();
 console.log(useAuthStore().userName);
 useAuthStore().fetchImg();
 
@@ -105,6 +107,12 @@ function filterRemoved() {
   customerType.value = 'Choose a customer type'
   purposeOfVisit.value = 'Choose a purpose of visit'
 }
+
+onMounted(() => {
+  const startDate = new Date();
+  const endDate = new Date(new Date().setDate(startDate.getDate() + 7));
+  date.value = [startDate, endDate];
+})
 </script>
 
 <template>
@@ -168,7 +176,10 @@ function filterRemoved() {
             @update:modelValue="filterByCity"
           />
         </div>
-
+        <VueDatePicker v-model="date" range />
+        <div>
+          hello
+        </div>
         <div>
           <div v-if="selectedCity === 'Karachi'">
             <label

@@ -10,10 +10,15 @@ import TimelineChart from '@/components/Charts/ApexCharts/TimelineChart.vue'
 import Guage from '@/components/Charts/ECharts/Guage.vue'
 import GradientPirChart from '@/components/Charts/ApexCharts/GradientPirChart.vue'
 import CustomDropdown from '@/components/DropDown/DropDown.vue'
-import { ref } from 'vue'
+import { ref, onMounted, type Ref } from 'vue'
 import VBarChart from '@/components/Charts/ApexCharts/VBarChart.vue'
 import { useAuthStore } from '@/stores/auth'
+import { RangeCalendar } from '@/components/ui/range-calendar'
+import datePicker from '@/components/ui/datePicker.vue/datePicker.vue'
 
+
+
+const date = ref();
 const dataStore = useDataStore()
 dataStore.fetchData() // Fetch and initialize data
 useAuthStore().fetchImg();
@@ -102,16 +107,31 @@ function filterRemoved() {
   customerType.value = 'Choose a customer type'
   purposeOfVisit.value = 'Choose a purpose of visit'
 }
+
+const start = new Date()
+const end = new Date(new Date().setDate(start.getDate() + 1));
+// onMounted(() => {
+//   const startDate = new Date();
+//   const endDate = new Date(new Date().setDate(startDate.getDate() + 0));
+//   date.value = [startDate, endDate];
+// })
+const value = ref({
+  start,
+  end,
+}) as Ref<any>
+
 </script>
 
 <template>
   <DefaultLayout>
+    
     <div>
-      <div class="grid lg:grid-cols-5 md:grid-cols-2 grid-cols-1 justify-between gap-2 flex-wrap">
+      <div class="grid lg:grid-cols-6 md:grid-cols-2 grid-cols-1 justify-between gap-2 flex-wrap">
+       
         <div v-if="selectedBranch === 'Z Block DHA Phase III, Lahore'">
           <label
             for="city-filter"
-            class="block text-base font-bold text-gray-900 dark:text-white ml-2"
+            class="block text-sm font-bold text-gray-900 dark:text-white ml-2"
           >
             City
           </label>
@@ -278,7 +298,18 @@ function filterRemoved() {
             @update:modelValue="(value) => setFilter('deposit', value)"
           />
         </div>
+        <div class="space-y-1 flex flex-col">
+          <label
+            for="visiting-filter"
+            class="block text-base font-bold text-gray-900 dark:text-white ml-2"
+          >
+            Purpose of Visit
+          </label>
+            <!-- <RangeCalendar v-model="date" class="rounded-md border" /> -->
+            <datePicker />
       </div>
+      </div>
+     
 
       <div class="flex justify-end mb-7 mt-7">
         <Transition name="bounce">
@@ -370,4 +401,6 @@ function filterRemoved() {
     transform: scale(1);
   }
 }
+
+
 </style>

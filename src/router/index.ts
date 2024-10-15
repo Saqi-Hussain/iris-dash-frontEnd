@@ -18,6 +18,7 @@ import FormLayoutView from '@/views/Forms/FormLayoutView.vue'
 import FormElementsView from '@/views/Forms/FormElementsView.vue'
 import Import from '@/views/Import/Import.vue'
 import Export from '@/views/Forms/Export/Export.vue'
+import DataFetcher from '@/views/DataFetcher/DataFetcher.vue'
 // import other views as needed...
 
 const routes = [
@@ -182,7 +183,17 @@ const routes = [
     meta: {
       title: 'export',
       requiresAuth: true,
-      requiresAdmin: true // Only admin can access
+      // requiresAdmin: true // Only admin can access
+    }
+  },
+  {
+    path: '/filter',
+    name: 'filter',
+    component: DataFetcher,
+    meta: {
+      title: 'filter',
+      requiresAuth: true,
+      // requiresAdmin: true // Only admin can access
     }
   }
   // Uncomment and add other routes as needed...
