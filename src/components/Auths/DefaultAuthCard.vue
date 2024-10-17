@@ -8,7 +8,7 @@ const props = defineProps(['subtitle', 'title', 'customClasses'])
 <template>
   <!-- ====== Forms Section Start -->
   <div
-    class="rounded-sm border border-stroke shadow-default dark:border-strokedark dark:bg-boxdark bg-white"
+    class="rounded-sm border border-stroke shadow-default dark:border-strokedark dark:bg-boxdark bg-white md:w-[50%] p-5"
   >
     <div class="flex flex-wrap items-center  ">
       <div class="hidden w-full xl:block xl:w-1/2">
@@ -25,7 +25,7 @@ const props = defineProps(['subtitle', 'title', 'customClasses'])
           <!-- <p class="font-medium 2xl:px-20">Sign in to Iris Admin Dashboard</p> -->
 
           <span class="mt-15 inline-block">
-            <img src="@/assets/images/logo/al-logo.png" alt="illustration" class="drop-shadow-2xl"/>
+            <img src="@/assets/images/logo/Iris-Logo-12.png" width="300" alt="illustration" class="drop-shadow-2xl"/>
           </span>
         </div>
       </div>

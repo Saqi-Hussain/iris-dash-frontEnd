@@ -22,11 +22,13 @@ const year = currentDate.getFullYear();
 const month = currentDate.getMonth() + 1; // JavaScript months are 0-based, so add 1
 const day = currentDate.getDate();
 
-// Initialize the date range
+const dataStore = useDataStore();
+
+// Convert the start and end dates from strings to Date objects
 const value = ref({
-  start: new CalendarDate(year, month, day), // Current date as start
-  end: new CalendarDate(year, month, day).add({ days: 2 }), // Add 2 days to the current date for end
-}) as Ref<DateRange>;
+  start: dataStore.startDate ? new Date(dataStore.startDate) : undefined, // Convert to Date or set undefined
+  end: dataStore.endDate ? new Date(dataStore.endDate) : undefined // Convert to Date or set undefined
+}) as Ref<DateRange>; 
 
 // Function to handle submit logic
 const submitDate = () => {

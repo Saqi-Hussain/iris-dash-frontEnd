@@ -126,7 +126,7 @@ watch(
           v-if="useDataStore().achieved > 0 && achieved_percentage > 0"
           class="flex flex-col justify-center gap-[10px] h-[60%] mt-[55px]"
         >
-          <span class="flex items-center justify-around text-lg mb-3 font-medium">
+          <span class="flex items-center justify-evenly text-lg mb-3 font-medium">
             <div class="space-y-8">
               <p class="text-[20px] font-[600]">n</p>
               <p class="text-[20px] font-[600]">%</p>
@@ -146,7 +146,7 @@ watch(
         <div v-else class="absolute left-[35%] top-[50%] text-xl font-extrabold">No Data</div>
       </div>
       <div v-else class="flex justify-start gap-15">
-        <div class="mt-16 ml-28">
+        <div class="mt-16 ml-36">
           <pulse-loader :color="useDataStore().color" :size="useDataStore().size"></pulse-loader>
         </div>
       </div>
@@ -172,7 +172,7 @@ watch(
           v-if="useDataStore().malePercentage > 0 || useDataStore().femalePercentage > 0"
           class="flex flex-col gap-1 justify-center"
         >
-          <span class="flex items-center justify-around gap-[30px] text-lg font-medium">
+          <span class="flex items-center justify-around  text-lg font-medium">
             <img src="@/assets/images/male.png" alt="" class="h-[50px]" />
             <span class="text-[30px] font-[800]"> {{ useDataStore().malePercentage }}% </span>
           </span>
@@ -181,7 +181,7 @@ watch(
 
           <span
             v-if="useDataStore().loader"
-            class="flex items-center justify-around gap-[30px] text-lg font-medium"
+            class="flex items-center justify-around  text-lg font-medium"
           >
             <img src="@/assets/images/female.png" alt="" class="h-[50px]" />
             <span class="text-[30px] font-[800]"> {{ useDataStore().femalePercentage }}% </span>
@@ -191,7 +191,7 @@ watch(
       </div>
 
       <div v-else class="flex justify-start gap-15">
-        <div class="mt-14 ml-12">
+        <div class="mt-14 ml-20">
           <pulse-loader :color="useDataStore().color" :size="useDataStore().size"></pulse-loader>
         </div>
       </div>

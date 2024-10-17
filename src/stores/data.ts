@@ -54,8 +54,8 @@ interface TopCategoryItem {
 export const useDataStore = defineStore({
   id: 'data',
   state: () => ({
-    startDate: '2022-01-01',
-    endDate: '2022-12-31',
+    startDate: '',
+    endDate: '',
     color: '#455984',
     size: '15px',
     data: [] as DataItem[],
@@ -148,6 +148,19 @@ export const useDataStore = defineStore({
         const response = await axios.get(`${import.meta.env.VITE_APP_ENDPOINT}get-gender`)
         this.data = response.data
         this.originalData = [...response.data] // Store original data
+        // if (this.originalData.length > 0) {
+        //   const dates = this.originalData.map(item => new Date(item.Date));
+          
+        //   // Find the minimum and maximum dates
+        //   const minDate = new Date(Math.min(...dates));
+        //   const maxDate = new Date(Math.max(...dates));
+    
+        //   // Set startDate and endDate to the min and max dates
+        //   this.startDate = minDate.toISOString().split('T')[0]; // Format as YYYY-MM-DD
+        //   this.endDate = maxDate.toISOString().split('T')[0]; // Format as YYYY-MM-DD
+    
+        //   console.log('Start date:', this.startDate, 'End date:', this.endDate); // Log the default date range
+        // }
         this.filteredData = this.data // Initialize filteredData with all data
         this.getOverallTop2ArrayByDate()
         // console.log(this.data) // Log the fetched data
@@ -209,6 +222,7 @@ export const useDataStore = defineStore({
       }
 
 
+     
     
       // console.log('Filtered data:', this.filteredData) // Log the filtered data
       // Add date filtering
@@ -221,18 +235,17 @@ export const useDataStore = defineStore({
         const formattedEndDate = `${endDate.getFullYear()}/${endDate.getMonth() + 1}/${endDate.getDate()}`;
       
          // Adjust the end date to include the entire day (up to 23:59:59)
-  endDate.setHours(23, 59, 59, 999);
+           endDate.setHours(23, 59, 59, 999);
 
         console.log('Start date:', formattedStartDate, 'End date:', formattedEndDate);
       
+        
         filtered = filtered.filter((item) => {
           const itemDate = new Date(item.Date);
-
           return itemDate >= startDate && itemDate <= endDate;
         });
       }
-      
-        this.filteredData = filtered
+      this.filteredData = filtered
       console.log('filtered data', this.filteredData);
 
       this.updateStatistics()
@@ -763,6 +776,8 @@ export const useDataStore = defineStore({
       this.filters.payment_dues = ''
       this.filters.cheque_deposit = ''
       this.filteredData = [...this.originalData]
+      this.startDate = ''
+      this.endDate = ''
       this.updateStatistics()
       this.getOverallTop2ArrayByDate()
       this.updateTop5Array()

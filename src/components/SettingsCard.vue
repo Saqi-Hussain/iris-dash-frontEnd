@@ -6,6 +6,10 @@ import { Modal } from 'ant-design-vue'
 import axios from 'axios'
 import { useToast } from 'vue-toastification'
 import userPhoto from '@/assets/images/user/user-03.png'
+// import { Input } from 'ant-design-vue'
+import { Label } from './ui/label'
+import { Input } from './ui/input'
+import {Button} from './ui/button'
 
 
 const toast = useToast()
@@ -178,22 +182,22 @@ const updatePhoto = () => {
     <!-- Personal Information Section -->
     <div class="col-span-5 xl:col-span-3">
       <div
-        class="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark"
+        class="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark p-5 bg-slate-100/5"
       >
         <div class="border-b border-stroke py-4 px-7 dark:border-strokedark">
-          <h3 class="font-medium text-black dark:text-white">Personal Information</h3>
+          <h3 class="font-semibold text-black dark:text-white">Personal Information</h3>
         </div>
         <div class="p-7">
           <form @submit.prevent="handleSubmit">
             <!-- Full Name Section -->
             <div class="w-full mb-5.5">
-              <label
-                class="mb-3 block text-sm font-medium text-black dark:text-white"
+              <Label
+                class="mb-3 block text-sm font-[600] text-black dark:text-white"
                 for="fullName"
-                >Full Name</label
+                >Full Name</Label
               >
               <div class="relative">
-                <span class="absolute left-4.5 top-4">
+                <!-- <span class="absolute left-4.5 top-4">
                   <svg
                     class="fill-current"
                     width="20"
@@ -217,27 +221,33 @@ const updatePhoto = () => {
                       />
                     </g>
                   </svg>
-                </span>
-                <input
+                </span> -->
+                <Input 
+                v-model="formData.fullName"  
+                type="text"
+                  name="fullName"
+                  id="fullName"/>
+                <!-- <input
                   v-model="formData.fullName"
-                  class="w-full rounded border border-stroke bg-gray py-3 pl-11.5 pr-4.5 font-normal text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
+                  class="w-full rounded border border-stroke py-3 pl-11.5 pr-4.5 font-normal text-white focus:border-primary focus-visible:outline-none dark:border-strokedark  dark:text-white dark:focus:border-primary"
                   type="text"
                   name="fullName"
                   id="fullName"
                   placeholder="Name"
-                />
+                /> -->
               </div>
             </div>
 
             <!-- Email Address Section -->
-            <div class="mb-5.5">
-              <label
-                class="mb-3 block text-sm font-medium text-black dark:text-white"
+            <div class="my-2">
+            
+              <Label
+                class="mb-3 block text-sm font-[600] text-black dark:text-white"
                 for="emailAddress"
-                >Email Address</label
+                >Email Address</Label
               >
               <div class="relative">
-                <span class="absolute left-4.5 top-4">
+                <!-- <span class="absolute left-4.5 top-4">
                   <svg
                     class="fill-current"
                     width="20"
@@ -261,36 +271,43 @@ const updatePhoto = () => {
                       />
                     </g>
                   </svg>
-                </span>
-                <input
+                </span> -->
+                <Input v-model="formData.emailAddress"  type="email"
+                  name="emailAddress"
+                  id="emailAddress"/>
+                <!-- <input
                   v-model="formData.emailAddress"
                   class="w-full rounded border border-stroke bg-gray py-3 pl-11.5 pr-4.5 font-normal text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
                   type="email"
                   name="emailAddress"
                   id="emailAddress"
                   placeholder="devidjond45@gmail.com"
-                />
+                /> -->
               </div>
             </div>
 
             <!-- Current Password Section -->
-            <div class="mb-5.5 w-full">
-              <label
-                class="mb-3 block text-sm font-medium text-black dark:text-white"
+            <div class="my-2 w-full ">
+              <Label
+                class=" mb-3 block text-sm font-semibold text-black dark:text-white "
                 for="password"
               >
-                Password</label
+                Password</Label
               >
-              <input
+              <Input v-model="formData.password" type="password"
+                name="password"
+                id="password"
+                placeholder="************"/>
+              <!-- <input
                 v-model="formData.password"
                 class="w-full rounded border border-stroke bg-gray py-3 px-4.5 font-normal text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
                 type="password"
                 name="password"
                 id="password"
                 placeholder="************"
-              />
+              /> -->
             </div>
-            <div @click="showModal" class="cursor-pointer hover:text-[#455984]">
+            <div @click="showModal" class="cursor-pointer hover:text-[#455984] mt-5">
               Change password?
             </div>
             <div>
@@ -304,30 +321,40 @@ const updatePhoto = () => {
                 {{ modalText }}
                 <div class="mt-5">
                   <h1 class="text-sm">Current Password</h1>
-                  <input
+                  <Input v-model="formData.password"
+                  type="text"
+                    name="currentPassword"
+                    id="currentPassword"
+                    placeholder="************"
+                  />
+                  <!-- <input
                     v-model="formData.password"
                     class="w-full rounded border border-stroke bg-gray py-3 px-4.5 font-normal text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
                     type="text"
                     name="confirmPassword"
                     id="confirmPassword"
                     placeholder="************"
-                  />
+                  /> -->
                 </div>
                 <div class="my-3">
                   <h1 class="text-sm">New Password</h1>
-                  <input
+                  <Input v-model="formData.newPassword" type="password"
+                    name="newPassword"
+                    id="newPassword"
+                    placeholder="************"/>
+                  <!-- <input
                     v-model="formData.newPassword"
                     class="w-full rounded border border-stroke bg-gray py-3 px-4.5 font-normal text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
                     type="text"
-                    name="confirmPassword"
-                    id="confirmPassword"
+                    name="newPassword"
+                    id="newPassword"
                     placeholder="************"
-                  />
+                  /> -->
                 </div>
 
                 <template #footer>
-                  <button @click="handleCancel" class="cancel-btn">Cancel</button>
-                  <button @click="handleOk" class="ok-btn">OK</button>
+                  <Button @click="handleCancel" class="mr-2 bg-red-500 hover:bg-red-600">Cancel</Button>
+                  <Button @click="handleOk" class="bg-[#455984] hover:bg-[#394a6e]" >OK</Button>
                 </template>
               </Modal>
             </div>
@@ -355,7 +382,7 @@ const updatePhoto = () => {
 
     <!-- Your Photo Section -->
     <div class="col-span-5 xl:col-span-2">
-      <div class="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
+      <div class="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark bg-slate-100/5">
         <div class="border-b border-stroke py-4 px-7 dark:border-strokedark">
           <h3 class="font-medium text-black dark:text-white">Your Photo</h3>
         </div>
@@ -377,7 +404,7 @@ const updatePhoto = () => {
             </div>
 
             <!-- File Upload Section -->
-            <div id="FileUpload" class="relative mb-5.5 block w-full cursor-pointer appearance-none rounded border-2 border-dashed border-primary bg-gray py-4 px-4 dark:bg-meta-4 sm:py-7.5">
+            <div id="FileUpload" class="relative mb-5.5 block w-full cursor-pointer appearance-none rounded border-2 border-dashed border-[#455984] bg-gray py-4 px-4 dark:bg-meta-4 sm:py-7.5">
               <input type="file" accept="image/*" class="absolute inset-0 z-50 m-0 h-full w-full cursor-pointer p-0 opacity-0 outline-none" @change="handleFileChange" />
               <div class="flex flex-col items-center justify-center space-y-3">
                 <span class="flex h-10 w-10 items-center justify-center rounded-full border border-stroke bg-white dark:border-strokedark dark:bg-boxdark">
@@ -396,13 +423,13 @@ const updatePhoto = () => {
             </div>
 
             <!-- Save and Cancel Buttons for Photo Section -->
-            <div class="flex justify-end gap-4.5">
-              <button class="flex justify-center rounded border border-stroke py-2 px-6 font-medium text-black hover:shadow-1 dark:border-strokedark dark:text-white" type="button" @click="handlePhotoCancel">
+            <div class="flex justify-end mt-5">
+              <Button class="mr-2 bg-red-500 hover:bg-red-600" type="button" @click="handlePhotoCancel">
                 Cancel
-              </button>
-              <button class="flex justify-center rounded bg-primary py-2 px-6 font-medium text-gray hover:bg-opacity-90" type="submit">
+              </Button>
+              <Button class="bg-[#455984] hover:bg-[#394a6e]" type="submit">
                 Save
-              </button>
+              </Button>
             </div>
           </form>
         </div>
@@ -411,30 +438,4 @@ const updatePhoto = () => {
   </div>
 </template>
 
-<style>
-/* Cancel button styles */
-.cancel-btn {
-  background-color: #d9534f;
-  color: white;
-  border: none;
-  padding: 8px 16px;
-  border-radius: 4px;
-  margin-right: 10px;
-}
 
-/* OK button styles */
-.ok-btn {
-  background-color: #455984;
-  color: white;
-  border: none;
-  padding: 8px 16px;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-/* Disable OK button when loading */
-.ok-btn[disabled] {
-  background-color: grey;
-  cursor: not-allowed;
-}
-</style>

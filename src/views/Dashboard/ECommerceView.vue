@@ -323,7 +323,8 @@ const value = ref({
               dataStore.filters.transferring_fund ||
               dataStore.filters.payment_dues ||
               dataStore.filters.city ||
-              dataStore.filters.withdrawal
+              dataStore.filters.withdrawal||
+              dataStore.endDate
             "
             @click="filterRemoved"
             class="dark:bg-[#008ffb] text-[#455984] dark:text-white py-2 px-5 rounded-md block transition-all duration-300 hover:bg-[#455984] dark:hover:bg-white dark:hover:text-[#008ffb] hover:text-white border-2 border-[#455984]"

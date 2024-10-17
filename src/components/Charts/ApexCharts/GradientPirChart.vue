@@ -127,7 +127,7 @@ watch(
 
 <template>
   <div
-    class="relative col-span-12 border min-h-[400px] border-stroke shadow-[1px_2px_55px_-18px_#00008070] bg-white px-5 pt-7.5 pb-5 rounded-lg dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:col-span-4"
+    class="relative col-span-12 p-5 border min-h-[400px] border-stroke shadow-[1px_2px_55px_-18px_#00008070] bg-white px-5 pt-7.5 pb-5 rounded-lg dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:col-span-4"
   >
     <div class="mb-3 justify-center items-center gap-4 sm:flex">
       <div>
