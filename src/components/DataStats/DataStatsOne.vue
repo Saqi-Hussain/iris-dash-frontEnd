@@ -2,7 +2,7 @@
 // import { ref } from 'vue'
 import { useDataStore } from '@/stores/data'
 import VueApexCharts from 'vue3-apexcharts'
-import { ref, watch } from 'vue'
+import { onMounted, ref, watch } from 'vue'
 import { PulseLoader } from 'vue-spinner/dist/vue-spinner.min.js'
 const chart = ref(null)
 
@@ -59,7 +59,11 @@ const chartOptions = ref({
   ]
 })
 
-const achieved_percentage = ref(0)
+const achieved_percentage = ref((useDataStore().achieved / useDataStore().total_sample) * 100)
+
+onMounted(() => {
+  console.log(achieved_percentage.value)
+})
 
 // Watch for changes in the store data
 watch(
@@ -73,6 +77,7 @@ watch(
     achieved_percentage.value = Math.round((achieved / total) * 100)
     series.value = [Math.round(newAccountHolder), Math.round(newNoneAccountHolder)]
     // console.log(newAccountHolder, newNoneAccountHolder)
+    console.log(achieved_percentage.value)
   }
 )
 </script>
@@ -172,7 +177,7 @@ watch(
           v-if="useDataStore().malePercentage > 0 || useDataStore().femalePercentage > 0"
           class="flex flex-col gap-1 justify-center"
         >
-          <span class="flex items-center justify-around  text-lg font-medium">
+          <span class="flex items-center justify-around text-lg font-medium">
             <img src="@/assets/images/male.png" alt="" class="h-[50px]" />
             <span class="text-[30px] font-[800]"> {{ useDataStore().malePercentage }}% </span>
           </span>
@@ -181,7 +186,7 @@ watch(
 
           <span
             v-if="useDataStore().loader"
-            class="flex items-center justify-around  text-lg font-medium"
+            class="flex items-center justify-around text-lg font-medium"
           >
             <img src="@/assets/images/female.png" alt="" class="h-[50px]" />
             <span class="text-[30px] font-[800]"> {{ useDataStore().femalePercentage }}% </span>

@@ -10,19 +10,16 @@ import TimelineChart from '@/components/Charts/ApexCharts/TimelineChart.vue'
 import Guage from '@/components/Charts/ECharts/Guage.vue'
 import GradientPirChart from '@/components/Charts/ApexCharts/GradientPirChart.vue'
 import CustomDropdown from '@/components/DropDown/DropDown.vue'
-import { ref, onMounted, type Ref } from 'vue'
+import { ref, type Ref } from 'vue'
 import VBarChart from '@/components/Charts/ApexCharts/VBarChart.vue'
 import { useAuthStore } from '@/stores/auth'
-import { RangeCalendar } from '@/components/ui/range-calendar'
 import datePicker from '@/components/ui/datePicker.vue/datePicker.vue'
 
-
-
-const date = ref();
+const date = ref()
 const dataStore = useDataStore()
 dataStore.fetchData() // Fetch and initialize data
-useAuthStore().fetchImg();
-
+useAuthStore().fetchImg()
+const BranchType = ref('Choose a branch type')
 const city = ref('Choose a city')
 const branch = ref('Choose a branch')
 const gender = ref('Choose a gender')
@@ -43,6 +40,10 @@ function filterByGender(gender: string) {
 
 function filterByCustomerType(customerType: string) {
   dataStore.setCustomerType(customerType === 'Choose a customer type' ? '' : customerType)
+}
+
+function filterByBranchType(branchType: string) {
+  dataStore.setBranchType(branchType === 'Choose a branch type' ? '' : branchType)
 }
 
 function setFilter(filter: string, value: string) {
@@ -106,10 +107,11 @@ function filterRemoved() {
   gender.value = 'Choose a gender'
   customerType.value = 'Choose a customer type'
   purposeOfVisit.value = 'Choose a purpose of visit'
+  BranchType.value = 'Choose a branch type'
 }
 
 const start = new Date()
-const end = new Date(new Date().setDate(start.getDate() + 1));
+const end = new Date(new Date().setDate(start.getDate() + 1))
 // onMounted(() => {
 //   const startDate = new Date();
 //   const endDate = new Date(new Date().setDate(startDate.getDate() + 0));
@@ -117,17 +119,14 @@ const end = new Date(new Date().setDate(start.getDate() + 1));
 // })
 const value = ref({
   start,
-  end,
+  end
 }) as Ref<any>
-
 </script>
 
 <template>
   <DefaultLayout>
-    
     <div>
       <div class="grid lg:grid-cols-6 md:grid-cols-2 grid-cols-1 justify-between gap-2 flex-wrap">
-       
         <div v-if="selectedBranch === 'Z Block DHA Phase III, Lahore'">
           <label
             for="city-filter"
@@ -278,7 +277,7 @@ const value = ref({
           />
         </div>
 
-        <div>
+        <!-- <div>
           <label
             for="visiting-filter"
             class="block text-base font-bold text-gray-900 dark:text-white ml-2"
@@ -297,19 +296,33 @@ const value = ref({
             v-model="purposeOfVisit"
             @update:modelValue="(value) => setFilter('deposit', value)"
           />
+        </div> -->
+
+        <div>
+          <label
+            for="branch-type-filter"
+            class="block text-base font-bold text-gray-900 dark:text-white ml-2"
+          >
+            Branch Type
+          </label>
+          <CustomDropdown
+            :options="['Conventional', 'Islamic', 'Corporate']"
+            placeholder="Choose a branch type"
+            v-model="BranchType"
+            @update:modelValue="filterByBranchType"
+          />
         </div>
         <div class="space-y-1 flex flex-col">
           <label
             for="visiting-filter"
             class="block text-base font-bold text-gray-900 dark:text-white ml-2"
           >
-            Purpose of Visit
+            Date
           </label>
-            <!-- <RangeCalendar v-model="date" class="rounded-md border" /> -->
-            <datePicker />
+          <!-- <RangeCalendar v-model="date" class="rounded-md border" /> -->
+          <datePicker />
+        </div>
       </div>
-      </div>
-     
 
       <div class="flex justify-end mb-7 mt-7">
         <Transition name="bounce">
@@ -323,8 +336,9 @@ const value = ref({
               dataStore.filters.transferring_fund ||
               dataStore.filters.payment_dues ||
               dataStore.filters.city ||
-              dataStore.filters.withdrawal||
-              dataStore.endDate
+              dataStore.filters.withdrawal ||
+              dataStore.endDate ||
+              dataStore.filters.branchType
             "
             @click="filterRemoved"
             class="dark:bg-[#008ffb] text-[#455984] dark:text-white py-2 px-5 rounded-md block transition-all duration-300 hover:bg-[#455984] dark:hover:bg-white dark:hover:text-[#008ffb] hover:text-white border-2 border-[#455984]"
@@ -402,6 +416,4 @@ const value = ref({
     transform: scale(1);
   }
 }
-
-
 </style>

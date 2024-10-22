@@ -80,3 +80,24 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* Target the body and all scrollable elements */
+body, html, * {
+  /* Apply the custom scrollbar to all scrollable elements */
+  scrollbar-width: thin; /* For Firefox */
+  scrollbar-color: #455984 slategrey; /* For Firefox */
+}
+
+/* Webkit browsers (Chrome, Safari, Edge) */
+::-webkit-scrollbar {
+  width: 0.1em;
+}
+
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 6px #455984;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #455984;
+  outline: 1px solid slategrey;
+}

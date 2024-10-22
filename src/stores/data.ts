@@ -39,6 +39,7 @@ interface DataItem {
   payment_dues: string
   cheque_deposit: string
   turn_around_time_mins: string
+  branch_type: string
 }
 
 interface DataArrayItem {
@@ -104,7 +105,9 @@ export const useDataStore = defineStore({
     digital_banking: 0,
     money_pay_order: 0,
     safe_deposit: 0,
-
+    conventional: 0,
+    islamic: 0,
+    corporate: 0,
     issuance_cheque_book: 0,
     bank_statement: 0,
     online_transaction: 0,
@@ -136,7 +139,8 @@ export const useDataStore = defineStore({
       withdrawal: '',
       payment_dues: '',
       cheque_deposit: '',
-      Date: ''
+      Date: '',
+      branchType: '',
     },
     satisfaction_trend: [],
     data_array: [] as DataArrayItem[],
@@ -221,7 +225,10 @@ export const useDataStore = defineStore({
         filtered = filtered.filter((item) => item.branch === this.filters.branch)
       }
 
-
+      if (this.filters.branchType) {
+        // console.log('Filtering by branchType:', this.filters.branchType)
+        filtered = filtered.filter((item) => item.branch_type === this.filters.branchType)
+      }
      
     
       // console.log('Filtered data:', this.filteredData) // Log the filtered data
@@ -230,21 +237,21 @@ export const useDataStore = defineStore({
         const startDate = new Date(this.startDate);
         const endDate = new Date(this.endDate);
       
-        // Format the dates as year/month/day
+        // Format the dates as year/month/day (adding 1 to the month since getMonth() is zero-based)
         const formattedStartDate = `${startDate.getFullYear()}/${startDate.getMonth() + 1}/${startDate.getDate()}`;
         const formattedEndDate = `${endDate.getFullYear()}/${endDate.getMonth() + 1}/${endDate.getDate()}`;
-      
-         // Adjust the end date to include the entire day (up to 23:59:59)
-           endDate.setHours(23, 59, 59, 999);
-
+        startDate.setHours(0, 0, 0, 0);
+        // Adjust the end date to include the entire day (up to 23:59:59)
+        endDate.setHours(23, 59, 59, 999);
+    
         console.log('Start date:', formattedStartDate, 'End date:', formattedEndDate);
-      
         
         filtered = filtered.filter((item) => {
-          const itemDate = new Date(item.Date);
-          return itemDate >= startDate && itemDate <= endDate;
+            const itemDate = new Date(item.Date);  // Ensure the date format matches
+            return itemDate >= startDate && itemDate <= endDate;
         });
-      }
+    }
+    
       this.filteredData = filtered
       console.log('filtered data', this.filteredData);
 
@@ -259,6 +266,16 @@ export const useDataStore = defineStore({
       const total = this.filteredData.length
 
       this.achieved = total
+
+
+      // filter by branchtype and 1 is for coventional branch 2 for islamic 3 for corporate 
+      const conventional = this.filteredData.filter((item) => item.branch_type === '1').length
+      const islamic = this.filteredData.filter((item) => item.branch_type === '2').length
+      const corporate = this.filteredData.filter((item) => item.branch_type === '3').length
+      this.conventional = total ? Math.round((conventional / total) * 100) : 0
+      this.islamic = total ? Math.round((islamic / total) * 100) : 0
+      this.corporate = total ? Math.round((corporate / total) * 100) : 0
+      
 
       // Calculate percentages based on filtered data
       const maleCount = this.filteredData.filter((item) => item.gender === 'Male').length
@@ -720,6 +737,12 @@ export const useDataStore = defineStore({
       
       this.applyFilters();
     },
+    setBranchType(branchType: string) {
+      this.filters.branchType = branchType
+      console.log('branchType', branchType);
+      
+      this.applyFilters()
+    },
     updateTop5Array() {
       const stats = {
         'Withdrawing money': this.withdrawal,
@@ -778,6 +801,7 @@ export const useDataStore = defineStore({
       this.filteredData = [...this.originalData]
       this.startDate = ''
       this.endDate = ''
+      this.filters.branchType = ''
       this.updateStatistics()
       this.getOverallTop2ArrayByDate()
       this.updateTop5Array()

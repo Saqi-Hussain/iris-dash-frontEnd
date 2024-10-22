@@ -183,7 +183,7 @@ const routes = [
     meta: {
       title: 'export',
       requiresAuth: true,
-      // requiresAdmin: true // Only admin can access
+      requiresAdmin: true // Only admin can access
     }
   },
   {

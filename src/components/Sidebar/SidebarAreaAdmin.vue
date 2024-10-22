@@ -46,16 +46,15 @@ const menuGroups = ref([
 
         route: '/'
       },
-      {
-        icon: `
+      //       {
+      //         icon: `
 
-  <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="M11 20q-.425 0-.712-.288T10 19v-6L4.2 5.6q-.375-.5-.112-1.05T5 4h14q.65 0 .913.55T19.8 5.6L14 13v6q0 .425-.288.713T13 20zm1-7.7L16.95 6h-9.9zm0 0"></path></svg>
+      //   <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="M11 20q-.425 0-.712-.288T10 19v-6L4.2 5.6q-.375-.5-.112-1.05T5 4h14q.65 0 .913.55T19.8 5.6L14 13v6q0 .425-.288.713T13 20zm1-7.7L16.95 6h-9.9zm0 0"></path></svg>
 
-
-`,
-        label: 'Filteration',
-        route: '/filter'
-      },
+      // `,
+      //         label: 'Filteration',
+      //         route: '/filter'
+      //       },
       {
         icon: `<svg
                   class="fill-current"
@@ -72,6 +71,30 @@ const menuGroups = ref([
                 </svg>`,
         label: 'Calendar',
         route: '/calendar'
+      },
+      {
+        icon: `<svg
+                  class="fill-current"
+                  width="18"
+                  height="19"
+                  viewBox="0 0 18 19"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <g clip-path="url(#clip0_130_9756)">
+                    <path
+                      d="M15.7501 0.55835H2.2501C1.29385 0.55835 0.506348 1.34585 0.506348 2.3021V15.8021C0.506348 16.7584 1.29385 17.574 2.27822 17.574H15.7782C16.7345 17.574 17.5501 16.7865 17.5501 15.8021V2.3021C17.522 1.34585 16.7063 0.55835 15.7501 0.55835ZM6.69385 10.599V6.4646H11.3063V10.5709H6.69385V10.599ZM11.3063 11.8646V16.3083H6.69385V11.8646H11.3063ZM1.77197 6.4646H5.45635V10.5709H1.77197V6.4646ZM12.572 6.4646H16.2563V10.5709H12.572V6.4646ZM2.2501 1.82397H15.7501C16.0313 1.82397 16.2563 2.04897 16.2563 2.33022V5.2271H1.77197V2.3021C1.77197 2.02085 1.96885 1.82397 2.2501 1.82397ZM1.77197 15.8021V11.8646H5.45635V16.3083H2.2501C1.96885 16.3083 1.77197 16.0834 1.77197 15.8021ZM15.7501 16.3083H12.572V11.8646H16.2563V15.8021C16.2563 16.0834 16.0313 16.3083 15.7501 16.3083Z"
+                      fill=""
+                    />
+                  </g>
+                  <defs>
+                    <clipPath id="clip0_130_9756">
+                      <rect width="18" height="18" fill="white" transform="translate(0 0.052124)" />
+                    </clipPath>
+                  </defs>
+                </svg>`,
+        label: 'Tables',
+        route: '/tables'
       },
       {
         icon: `<svg
@@ -131,30 +154,7 @@ const menuGroups = ref([
           { label: 'Form Layout', route: '/forms/form-layout' }
         ]
       },
-      {
-        icon: `<svg
-                  class="fill-current"
-                  width="18"
-                  height="19"
-                  viewBox="0 0 18 19"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <g clip-path="url(#clip0_130_9756)">
-                    <path
-                      d="M15.7501 0.55835H2.2501C1.29385 0.55835 0.506348 1.34585 0.506348 2.3021V15.8021C0.506348 16.7584 1.29385 17.574 2.27822 17.574H15.7782C16.7345 17.574 17.5501 16.7865 17.5501 15.8021V2.3021C17.522 1.34585 16.7063 0.55835 15.7501 0.55835ZM6.69385 10.599V6.4646H11.3063V10.5709H6.69385V10.599ZM11.3063 11.8646V16.3083H6.69385V11.8646H11.3063ZM1.77197 6.4646H5.45635V10.5709H1.77197V6.4646ZM12.572 6.4646H16.2563V10.5709H12.572V6.4646ZM2.2501 1.82397H15.7501C16.0313 1.82397 16.2563 2.04897 16.2563 2.33022V5.2271H1.77197V2.3021C1.77197 2.02085 1.96885 1.82397 2.2501 1.82397ZM1.77197 15.8021V11.8646H5.45635V16.3083H2.2501C1.96885 16.3083 1.77197 16.0834 1.77197 15.8021ZM15.7501 16.3083H12.572V11.8646H16.2563V15.8021C16.2563 16.0834 16.0313 16.3083 15.7501 16.3083Z"
-                      fill=""
-                    />
-                  </g>
-                  <defs>
-                    <clipPath id="clip0_130_9756">
-                      <rect width="18" height="18" fill="white" transform="translate(0 0.052124)" />
-                    </clipPath>
-                  </defs>
-                </svg>`,
-        label: 'Tables',
-        route: '/tables'
-      },
+
       {
         icon: `<svg
                   class="fill-current"
@@ -337,7 +337,7 @@ const menuGroups = ref([
 
 <template>
   <aside
-    class="absolute left-0 top-0 z-9999 flex h-screen flex-col overflow-y-hidden bg-slate-200 duration-300 ease-linear dark:bg-boxdark lg:static lg:translate-x-0 shadow-3"
+    class="absolute left-0 top-0 z-9999 flex h-screen flex-col overflow-y-hidden bg-[#455984] bg-gradient-to-t from-[#455984] to-white duration-300 ease-linear dark:bg-boxdark lg:static lg:translate-x-0 shadow-3"
     :class="{
       'translate-x-0': sidebarStore.isSidebarOpen,
       '-translate-x-full': !sidebarStore.isSidebarOpen
@@ -351,7 +351,7 @@ const menuGroups = ref([
           src="@/assets/images/logo/logo.png"
           class="h-[120px] w-[120px]"
           alt="Logo"
-          style="filter: drop-shadow(2px 8px 50px white)"
+          style="filter: drop-shadow(1px 1px 8px white)"
         />
       </router-link>
 
@@ -376,9 +376,11 @@ const menuGroups = ref([
     <div class="no-scrollbar flex flex-col overflow-y-auto duration-300 ease-linear">
       <!-- Sidebar Menu -->
       <nav class="mt-5 py-4 lg:mt-9">
-        <template v-for="menuGroup in menuGroups" :key="menuGroup.name">
+        <template v-for="(menuGroup, index) in menuGroups" :key="menuGroup.name">
           <div>
-            <h3 class="mb-4 ml-6 text-sm font-bold text-black">{{ menuGroup.name }}</h3>
+            <h3 class="mb-4 ml-6 text-sm font-bold text-[#1a1717]">
+              {{ menuGroup.name }}
+            </h3>
 
             <ul class="mb-6 flex flex-col gap-1.5">
               <SidebarItem

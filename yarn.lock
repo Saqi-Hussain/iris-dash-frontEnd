@@ -7,6 +7,38 @@
   resolved "https://registry.npmjs.org/@aashutoshrathi/word-wrap/-/word-wrap-1.2.6.tgz"
   integrity sha512-1Yjs2SvM8TflER/OD3cOjhWWOZb58A2t7wpE2S9XfBYTiIl+XFhQG2bjy4Pu1I+EAlCNUzRDYDdFwFYUKvXcIA==
 
+"@ag-grid-community/core@^32.2.2", "@ag-grid-community/core@32.2.2":
+  version "32.2.2"
+  resolved "https://registry.npmjs.org/@ag-grid-community/core/-/core-32.2.2.tgz"
+  integrity sha512-8w++Q5DKbFKhee7ZZ3HCx6KkMTHVwtV+xNwN/RJZneQ3WkXJYvsnkgVWmiwtglEo1iuMArxTz6pqOz/p23TBxA==
+  dependencies:
+    ag-charts-types "10.2.0"
+    tslib "^2.3.0"
+
+"@ag-grid-community/csv-export@^32.2.2", "@ag-grid-community/csv-export@32.2.2":
+  version "32.2.2"
+  resolved "https://registry.npmjs.org/@ag-grid-community/csv-export/-/csv-export-32.2.2.tgz"
+  integrity sha512-9ttdlJ7XOgK/qGC0QyXM1ep3f1GIjnyz1cQqIr9B2epe0fGFDt+lvK9EJBAQCG2GVJaFJ/xxBJfkQx65ganp+g==
+  dependencies:
+    "@ag-grid-community/core" "32.2.2"
+    tslib "^2.3.0"
+
+"@ag-grid-enterprise/core@32.2.2":
+  version "32.2.2"
+  resolved "https://registry.npmjs.org/@ag-grid-enterprise/core/-/core-32.2.2.tgz"
+  integrity sha512-0aUkBDIAGQAlNta13hX4ThgJ020LGN6Xfm5hUiRCSt1GC060H+GJVpfoc/VoFqa3VVr0BBdSZnXVTV5GX2UD2A==
+  dependencies:
+    "@ag-grid-community/core" "32.2.2"
+
+"@ag-grid-enterprise/excel-export@^32.2.2":
+  version "32.2.2"
+  resolved "https://registry.npmjs.org/@ag-grid-enterprise/excel-export/-/excel-export-32.2.2.tgz"
+  integrity sha512-smCT8hmT8OIvHeR+0sKq5S8fEzBkX7v5mJo9l0wBQKC3mr1XcmDrkrdRBVTT6VOVlxs2+JJjdNa6mSbnL+BERg==
+  dependencies:
+    "@ag-grid-community/core" "32.2.2"
+    "@ag-grid-community/csv-export" "32.2.2"
+    "@ag-grid-enterprise/core" "32.2.2"
+
 "@alloc/quick-lru@^5.2.0":
   version "5.2.0"
   resolved "https://registry.npmjs.org/@alloc/quick-lru/-/quick-lru-5.2.0.tgz"
@@ -389,6 +421,28 @@
     "@floating-ui/dom" "^1.0.0"
     "@floating-ui/utils" "^0.2.8"
     vue-demi ">=0.13.0"
+
+"@fullcalendar/core@^6.1.15", "@fullcalendar/core@~6.1.15":
+  version "6.1.15"
+  resolved "https://registry.npmjs.org/@fullcalendar/core/-/core-6.1.15.tgz"
+  integrity sha512-BuX7o6ALpLb84cMw1FCB9/cSgF4JbVO894cjJZ6kP74jzbUZNjtwffwRdA+Id8rrLjT30d/7TrkW90k4zbXB5Q==
+  dependencies:
+    preact "~10.12.1"
+
+"@fullcalendar/daygrid@^6.1.15":
+  version "6.1.15"
+  resolved "https://registry.npmjs.org/@fullcalendar/daygrid/-/daygrid-6.1.15.tgz"
+  integrity sha512-j8tL0HhfiVsdtOCLfzK2J0RtSkiad3BYYemwQKq512cx6btz6ZZ2RNc/hVnIxluuWFyvx5sXZwoeTJsFSFTEFA==
+
+"@fullcalendar/interaction@^6.1.15":
+  version "6.1.15"
+  resolved "https://registry.npmjs.org/@fullcalendar/interaction/-/interaction-6.1.15.tgz"
+  integrity sha512-DOTSkofizM7QItjgu7W68TvKKvN9PSEEvDJceyMbQDvlXHa7pm/WAVtAc6xSDZ9xmB1QramYoWGLHkCYbTW1rQ==
+
+"@fullcalendar/vue3@^6.1.15":
+  version "6.1.15"
+  resolved "https://registry.npmjs.org/@fullcalendar/vue3/-/vue3-6.1.15.tgz"
+  integrity sha512-ctfTICGrNEIj7gmLHQcUYe0WzDTSW5Vd9hyOnVChxPU75AZU9WqdDMkHwJYnfNxNhT6QQuiMHq/qsRRd5zQwOw==
 
 "@humanwhocodes/config-array@^0.11.13":
   version "0.11.13"
@@ -1079,6 +1133,47 @@ acorn-jsx@^5.3.2:
   version "8.11.2"
   resolved "https://registry.npmjs.org/acorn/-/acorn-8.11.2.tgz"
   integrity sha512-nc0Axzp/0FILLEVsm4fNwLCwMttvhEI263QtVPQcbpfZZ3ts0hLsZGOpE6czNlid7CJ9MlyH8reXkpsf3YUY4w==
+
+ag-charts-community@10.2.0:
+  version "10.2.0"
+  resolved "https://registry.npmjs.org/ag-charts-community/-/ag-charts-community-10.2.0.tgz"
+  integrity sha512-zRB5xvMj14Mli8kEmcy4wDBzJpdOF7+3yqCXrr8ug3sGjMlAJaf33Vu6qqxzlS/Vpip6TNvjPK9Q6RdtDHslRw==
+  dependencies:
+    ag-charts-locale "10.2.0"
+    ag-charts-types "10.2.0"
+
+ag-charts-locale@10.2.0:
+  version "10.2.0"
+  resolved "https://registry.npmjs.org/ag-charts-locale/-/ag-charts-locale-10.2.0.tgz"
+  integrity sha512-JAwuJFXwoVE94YFuwo1ZtnCJa4rFLQna+t2xT5qT2KUaohVPHB+Zd8ivP62lOv9j2ZgzSg4WANBo2UT1LCtl2Q==
+
+ag-charts-types@10.2.0:
+  version "10.2.0"
+  resolved "https://registry.npmjs.org/ag-charts-types/-/ag-charts-types-10.2.0.tgz"
+  integrity sha512-PUqH1QtugpYLnlbMdeSZVf5PpT1XZVsP69qN1JXhetLtQpVC28zaj7ikwu9CMA9N9b+dBboA9QcjUQUJZVUokQ==
+
+ag-grid-community@32.2.2:
+  version "32.2.2"
+  resolved "https://registry.npmjs.org/ag-grid-community/-/ag-grid-community-32.2.2.tgz"
+  integrity sha512-RQluoEXbTCkYHHwmOUzG4wGBX3yQffFH+52aWJUAFqFKNNHYKYGhjvH2iuAa2xw3CWva1hupUaDpP+Rol32Arg==
+  dependencies:
+    ag-charts-types "10.2.0"
+
+ag-grid-enterprise@^32.2.2:
+  version "32.2.2"
+  resolved "https://registry.npmjs.org/ag-grid-enterprise/-/ag-grid-enterprise-32.2.2.tgz"
+  integrity sha512-svKWgc9JkNptt5HTiv4y66m6tBx6BsxDHI5GEyb0MxGywEGJrK9YAqzCFgkFylZfKp973rWZY1/3q1XEXWH25g==
+  dependencies:
+    ag-charts-community "10.2.0"
+    ag-grid-community "32.2.2"
+
+ag-grid-vue3@^32.2.2:
+  version "32.2.2"
+  resolved "https://registry.npmjs.org/ag-grid-vue3/-/ag-grid-vue3-32.2.2.tgz"
+  integrity sha512-i2SK0yd+8rhrNOjq3ylCfr2h9sqiku2O72pJsh9DFibwLlOABK8t5SyIteEclM6jaWzsFC5yZ7zxLe7wFHt/hw==
+  dependencies:
+    ag-grid-community "32.2.2"
+    vue "^3.0.0"
 
 ajv-keywords@^3.5.2:
   version "3.5.2"
@@ -2636,6 +2731,11 @@ postcss@^8.0.0, postcss@^8.1.0, postcss@^8.2.14, postcss@^8.4.21, postcss@^8.4.2
     picocolors "^1.1.0"
     source-map-js "^1.2.1"
 
+preact@~10.12.1:
+  version "10.12.1"
+  resolved "https://registry.npmjs.org/preact/-/preact-10.12.1.tgz"
+  integrity sha512-l8386ixSsBdbreOAkqtrwqHwdvR35ID8c3rKPa8lCWuO86dBi32QWHV4vfsZK1utLLFMvw+Z5Ad4XLkZzchscg==
+
 prelude-ls@^1.2.1:
   version "1.2.1"
   resolved "https://registry.npmjs.org/prelude-ls/-/prelude-ls-1.2.1.tgz"
@@ -3214,7 +3314,7 @@ ts-interface-checker@^0.1.9:
   resolved "https://registry.npmjs.org/ts-interface-checker/-/ts-interface-checker-0.1.13.tgz"
   integrity sha512-Y/arvbn+rrz3JCKl9C4kVNfTfSm2/mEp5FSz5EsZSANGPSlQrpRI5M4PKF+mJnE52jOO90PnPSc3Ur3bTQw0gA==
 
-tslib@^2.0.0, tslib@^2.4.0, tslib@^2.6.2:
+tslib@^2.0.0, tslib@^2.3.0, tslib@^2.4.0, tslib@^2.6.2:
   version "2.6.2"
   resolved "https://registry.npmjs.org/tslib/-/tslib-2.6.2.tgz"
   integrity sha512-AEYxH93jGFPn/a2iVAwW87VuUIkR1FVUKB77NwMF7nBTDkDrrT/Hpt/IrCJ0QXhW27jTBDcf5ZY7w6RiqTMw2Q==
@@ -3383,7 +3483,7 @@ vue-types@^3.0.0:
   dependencies:
     is-plain-object "3.0.1"
 
-"vue@^2.6.14 || ^3.3.0", "vue@^2.7.0 || ^3.0.0", vue@^3.0.0, "vue@^3.0.0-0 || ^2.6.0", vue@^3.0.2, vue@^3.2.0, vue@^3.2.25, vue@^3.3.11, vue@^3.4.26, "vue@> 3.0.0", "vue@>= 3", "vue@>= 3.2.0", vue@>=3.0.1, vue@>=3.0.3, vue@>=3.2.0, vue@3.5.10:
+"vue@^2.6.14 || ^3.3.0", "vue@^2.7.0 || ^3.0.0", vue@^3.0.0, "vue@^3.0.0-0 || ^2.6.0", vue@^3.0.11, vue@^3.0.2, vue@^3.2.0, vue@^3.2.25, vue@^3.3.11, vue@^3.4.26, "vue@> 3.0.0", "vue@>= 3", "vue@>= 3.2.0", vue@>=3.0.1, vue@>=3.0.3, vue@>=3.2.0, vue@3.5.10:
   version "3.5.10"
   resolved "https://registry.npmjs.org/vue/-/vue-3.5.10.tgz"
   integrity sha512-Vy2kmJwHPlouC/tSnIgXVg03SG+9wSqT1xu1Vehc+ChsXsRd7jLkKgMltVEFOzUdBr3uFwBCG+41LJtfAcBRng==

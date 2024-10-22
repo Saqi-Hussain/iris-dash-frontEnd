@@ -4,31 +4,37 @@ import { useSidebarStore } from '@/stores/sidebar'
 // import DropdownMessage from './DropdownMessage.vue'
 // import DropdownNotification from './DropdownNotification.vue'
 import DropdownUser from './DropdownUser.vue'
-import { useRouter } from 'vue-router';
-import {  DropdownMenu,
+import { useRouter } from 'vue-router'
+import {
+  DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
-  DropdownMenuTrigger } from '../ui/dropdown-menu';
-import { useAuthStore } from '@/stores/auth';
+  DropdownMenuTrigger
+} from '../ui/dropdown-menu'
+import { useAuthStore } from '@/stores/auth'
 
-const router = useRouter();
+const router = useRouter()
 
 const logout = () => {
-  localStorage.removeItem('user');
-  router.push({ name: 'signin' });
-};
+  localStorage.removeItem('user')
+  router.push({ name: 'signin' })
+}
 
 const { toggleSidebar } = useSidebarStore()
 const sidebarStore = useSidebarStore()
+
+console.log(useAuthStore().userAvatar)
 </script>
 
 <template>
   <header
-    class=" z-999 flex w-full bg-slate-200 drop-shadow-1 dark:bg-boxdark dark:drop-shadow-none"
+    class="z-999 flex w-full bg-slate-200 drop-shadow-1 dark:bg-boxdark dark:drop-shadow-none"
   >
-    <div class="flex flex-grow items-center justify-between lg:justify-between py-4 px-4 shadow-2 md:px-10  2xl:px-11">
+    <div
+      class="flex flex-grow items-center justify-between lg:justify-between py-4 px-4 shadow-2 md:px-10 2xl:px-11"
+    >
       <div class="flex items-center gap-2 sm:gap-4 lg:hidden">
         <!-- Hamburger Toggle BTN -->
         <button
@@ -72,27 +78,50 @@ const sidebarStore = useSidebarStore()
           <!-- <img src="@/assets/images/logo/logo-icon.svg" alt="Logo" /> -->
         </router-link>
       </div>
-      <div>
+      <div></div>
+      <span class="block text-[24px] font-extrabold text-[#465985] dark:text-white text-start"
+        >Bank Alfalah Dashboard - <span class="text-[#EB1E28]">Branch Exit Interviews</span>
+      </span>
 
+      <div class="flex gap-[6px]">
+        <img
+          v-if="useAuthStore().userAvatar == 'http://127.0.0.1:8000null'"
+          src="@/assets/images/logo/default-dp.jpg"
+          width="30"
+          class="rounded-full"
+          alt="User"
+        />
+
+        <img
+          v-else-if="useAuthStore().userAvatar"
+          :src="useAuthStore().userAvatar"
+          width="35"
+          alt="User"
+        />
+
+        <DropdownMenu class="mt-2">
+          <DropdownMenuTrigger class="font-semibold flex items-center gap-1"
+            >Hello {{ useAuthStore().userName }}
+
+            <div>
+              <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
+                <path fill="currentColor" d="m12 15l-5-5h10z"></path>
+              </svg></div
+          ></DropdownMenuTrigger>
+          <DropdownMenuContent>
+            <DropdownMenuLabel>Account Setting</DropdownMenuLabel>
+            <DropdownMenuSeparator />
+            <router-link to="account/settings">
+              <DropdownMenuItem class="hover:bg-[#465985] hover:text-white"
+                >Change Account Setting</DropdownMenuItem
+              >
+            </router-link>
+            <DropdownMenuItem class="hover:bg-[#465985] hover:text-white" @click="logout"
+              >Logout</DropdownMenuItem
+            >
+          </DropdownMenuContent>
+        </DropdownMenu>
       </div>
-      <span class="block text-[24px] font-bold text-[#465985] dark:text-white text-start">Bank Alfalah Dashboard -
-        Branch Exit Interviews</span>
-     
-        <div class="flex items-end gap-1">
-          <img v-if="useAuthStore().userAvatar" :src="useAuthStore().userAvatar" width="35" alt="User" />
-          <DropdownMenu>
-              <DropdownMenuTrigger class="font-semibold" >Hello {{ useAuthStore().userName }}</DropdownMenuTrigger>
-              <DropdownMenuContent>
-                <DropdownMenuLabel>Account Setting</DropdownMenuLabel>
-                <DropdownMenuSeparator />
-                <router-link to="account/settings">  <DropdownMenuItem>Change Account Setting</DropdownMenuItem> </router-link>
-                <DropdownMenuItem @click="logout">Logout</DropdownMenuItem>
-                <!-- <DropdownMenuItem>Team</DropdownMenuItem>
-                <DropdownMenuItem>Subscription</DropdownMenuItem> -->
-              </DropdownMenuContent>
-            </DropdownMenu>
-        </div>
-      
     </div>
   </header>
 </template>

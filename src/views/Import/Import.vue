@@ -1,48 +1,79 @@
 <script setup lang="ts">
 import { ref } from 'vue'
+import axios from 'axios' // You'll need axios for making HTTP requests
 import BreadcrumbDefault from '@/components/Breadcrumbs/BreadcrumbDefault.vue'
 import CalendarCard from '@/components/CalendarCard.vue'
 import DefaultLayout from '@/layouts/DefaultLayout.vue'
+import { useToast } from 'vue-toastification'
+import router from '@/router'
 
-// Reactive variable for the page title
-const pageTitle = ref('Calendar')
+const toast = useToast()
 
-// Refs for managing the file input, upload state, and loading state
+const pageTitle = ref('File Upload')
+
+// Reactive variables
 const fileName = ref<string | null>(null)
-const email = ref<string>('') 
-const isLoading = ref(false) // Loading state
+const file = ref<File | null>(null)
+const email = ref<string>('')
+const isLoading = ref(false)
+const done = ref(false)
 
-// Method to handle file input change
+// Handle file input change
 const handleFileChange = (event: Event) => {
   const input = event.target as HTMLInputElement
   if (input?.files?.length) {
+    file.value = input.files[0]
     fileName.value = input.files[0].name
   }
 }
 
-const done = ref(false)
-// Method to trigger file input click
+// Trigger file input click
 const triggerFileInput = () => {
   document.getElementById('fileID')?.click()
 }
 
-// Method to handle file upload form submission (for email input)
-const handleSubmit = () => {
-  if (email.value && fileName.value) {
+// Handle file upload
+const handleSubmit = async () => {
+  if (email.value && file.value) {
+    const formData = new FormData()
+    formData.append('email', email.value)
+    formData.append('file', file.value)
 
-    console.log('email = ',email.value);
-    console.log('fileName = ',fileName.value);
-    
-    isLoading.value = true // Start loading
-    
-    // Simulate file upload delay (3 seconds)
-    setTimeout(() => {
-      // alert(`File ${fileName.value} will be uploaded to email: ${email.value}`)
-      isLoading.value = false // Stop loading
+    isLoading.value = true
+
+    try {
+      // Send POST request to the backend
+      const response = await axios.post(`${import.meta.env.VITE_APP_ENDPOINT}api/import`, formData)
+
+      // Handle successful upload
+      console.log('File uploaded successfully', response.data)
+      if (response.status === 200) {
+        toast.success('File uploaded successfully', {
+          timeout: 1500,
+          closeOnClick: true,
+          pauseOnFocusLoss: true,
+          pauseOnHover: false,
+          draggable: true,
+          draggablePercent: 0.6,
+          showCloseButtonOnHover: false,
+          hideProgressBar: false,
+          closeButton: 'button',
+          icon: true,
+          rtl: false
+        })
+        router.push('/')
+      }
+      isLoading.value = false
       fileName.value = null
       email.value = ''
       done.value = true
-    }, 2500) // Simulate upload time
+    } catch (error) {
+      // Handle error during upload
+      console.error('Error uploading file', error)
+      isLoading.value = false
+    }
+  } else {
+    console.log('Email and file are required')
   }
 }
 </script>
@@ -58,9 +89,7 @@ const handleSubmit = () => {
             <h4>Uploading...</h4>
             <div class="spinner"></div>
           </div>
-          <div v-else-if="done">
-            Done
-          </div>
+          <div v-else-if="done">Done</div>
           <!-- File selection and form if not uploading -->
           <div v-else>
             <header v-if="!fileName">
@@ -69,7 +98,13 @@ const handleSubmit = () => {
             <p v-if="!fileName">Files Supported: CSV, XLX, XLXS</p>
 
             <!-- File input and upload form -->
-            <input type="file" hidden accept=".csv,.xlxs,.xlx" id="fileID" @change="handleFileChange" />
+            <input
+              type="file"
+              hidden
+              accept=".csv,.xlsx,.xlx"
+              id="fileID"
+              @change="handleFileChange"
+            />
 
             <!-- Show file name and email form after file selection -->
             <div v-if="fileName" class="form w-full flex flex-col items-center space-y-8">
@@ -81,8 +116,6 @@ const handleSubmit = () => {
             <!-- Button to choose a file -->
             <button v-if="!fileName" class="btn" @click="triggerFileInput">Choose File</button>
           </div>
-
-        
         </div>
       </div>
     </div>
@@ -90,14 +123,14 @@ const handleSubmit = () => {
 </template>
 
 <style scoped>
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Poppins", sans-serif;
+  font-family: 'Poppins', sans-serif;
 }
 
 .container {
@@ -132,7 +165,7 @@ const handleSubmit = () => {
   justify-content: center;
   flex-direction: column;
   border-radius: 5px;
-  height: 200px
+  height: 200px;
 }
 
 .drop_box h4 {
@@ -203,7 +236,11 @@ const handleSubmit = () => {
 }
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 </style>
