@@ -5,7 +5,6 @@ import { ref, watch } from 'vue'
 import VueApexCharts, { type VueApexChartsComponent } from 'vue3-apexcharts'
 import { PulseLoader } from 'vue-spinner/dist/vue-spinner.min.js'
 
-
 const dataStore = useDataStore()
 
 const chart = ref<VueApexChartsComponent | null>(null)
@@ -85,7 +84,7 @@ const chartOptions = ref({
     }
   },
   responsive: [
-  {
+    {
       breakpoint: 980,
       options: {
         chart: {
@@ -117,7 +116,7 @@ const chartOptions = ref({
         }
       }
     },
-  {
+    {
       breakpoint: 1280,
       options: {
         chart: {
@@ -143,6 +142,14 @@ const chartOptions = ref({
     },
     {
       breakpoint: 1530,
+      options: {
+        chart: {
+          width: '450px'
+        }
+      }
+    },
+    {
+      breakpoint: 1650,
       options: {
         chart: {
           width: '450px'
@@ -202,6 +209,46 @@ watch(
     }
   }
 )
+
+// const updateBarChart = () => {
+//   const timeIntervals = {
+//     'Less than 10 minutes': dataStore.less_then_10,
+//     '10 – 15 minutes': dataStore.bt_10_15,
+//     '16 – 20 minutes': dataStore.bt_15_20,
+//     '21 – 25 minutes': dataStore.bt_20_25,
+//     '26 – 30 minutes': dataStore.bt_25_30,
+//     '31 – 45 minutes': dataStore.bt_30_45,
+//     '46 – 60 minutes': dataStore.bt_45_60,
+//     'More than 60 minutes': dataStore.more_then_60
+//   }
+
+//   // Filter out intervals with zero values
+//   const filteredIntervals = Object.entries(timeIntervals).filter(([key, value]) => value > 0)
+
+//   // Update the chart series and categories
+//   chartSeries.value[0].data = filteredIntervals.map(([key, value]) => value)
+//   chartOptions.value.xaxis.categories = filteredIntervals.map(([key]) => key)
+
+//   if (chart.value) {
+//     chart.value.updateSeries(chartSeries.value, true)
+//   }
+// }
+
+// watch(
+//   () => [
+//     dataStore.less_then_10,
+//     dataStore.bt_10_15,
+//     dataStore.bt_15_20,
+//     dataStore.bt_20_25,
+//     dataStore.bt_25_30,
+//     dataStore.bt_30_45,
+//     dataStore.bt_45_60,
+//     dataStore.more_then_60
+//   ],
+//   () => {
+//     updateBarChart()
+//   }
+// )
 </script>
 
 <template>
@@ -216,7 +263,18 @@ watch(
       </div>
     </div>
 
-    <div class="mb-2" v-if="dataStore.bt_10_15 > 0 || dataStore.bt_15_20 > 0 || dataStore.bt_20_25 > 0 || dataStore.bt_25_30 > 0 || dataStore.bt_30_45 > 0 || dataStore.bt_45_60 > 0 || dataStore.more_then_60 > 0">
+    <div
+      class="mb-2"
+      v-if="
+        dataStore.bt_10_15 > 0 ||
+        dataStore.bt_15_20 > 0 ||
+        dataStore.bt_20_25 > 0 ||
+        dataStore.bt_25_30 > 0 ||
+        dataStore.bt_30_45 > 0 ||
+        dataStore.bt_45_60 > 0 ||
+        dataStore.more_then_60 > 0
+      "
+    >
       <div id="TreeMap" class="mx-auto flex justify-center mt-5">
         <VueApexCharts
           type="bar"

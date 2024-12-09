@@ -45,8 +45,7 @@ const handlesubmit = async () => {
             hideProgressBar: false,
             closeButton: 'button',
             icon: true,
-            rtl: false,
-            position: 'bottom-right'
+            rtl: false
           })
 
           loading.value = false
@@ -68,8 +67,7 @@ const handlesubmit = async () => {
               hideProgressBar: false,
               closeButton: 'button',
               icon: true,
-              rtl: false,
-              position: 'bottom-right'
+              rtl: false
             })
 
             loading.value = false
@@ -85,8 +83,7 @@ const handlesubmit = async () => {
               hideProgressBar: false,
               closeButton: 'button',
               icon: true,
-              rtl: false,
-              position: 'bottom-right'
+              rtl: false
             })
 
             loading.value = false

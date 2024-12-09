@@ -2,7 +2,7 @@
 // import { ref } from 'vue'
 import { useDataStore } from '@/stores/data'
 import VueApexCharts from 'vue3-apexcharts'
-import { onMounted, ref, watch } from 'vue'
+import { computed, onMounted, ref, watch } from 'vue'
 import { PulseLoader } from 'vue-spinner/dist/vue-spinner.min.js'
 const chart = ref(null)
 
@@ -58,11 +58,17 @@ const chartOptions = ref({
     }
   ]
 })
+const achieved_percentage = computed(() => {
+  const store = useDataStore()
+  return ((store.achieved / store.total_sample) * 100).toFixed(2)
+})
 
-const achieved_percentage = ref((useDataStore().achieved / useDataStore().total_sample) * 100)
+console.log(typeof achieved_percentage)
+console.log(typeof useDataStore().achieved)
+console.log(typeof useDataStore().total_sample)
 
 onMounted(() => {
-  console.log(achieved_percentage.value)
+  console.log(achieved_percentage)
 })
 
 // Watch for changes in the store data
@@ -74,7 +80,7 @@ watch(
     useDataStore().total_sample
   ],
   ([newAccountHolder, newNoneAccountHolder, achieved, total]) => {
-    achieved_percentage.value = Math.round((achieved / total) * 100)
+    // achieved_percentage = ((achieved / total) * 100).toFixed(2)
     series.value = [Math.round(newAccountHolder), Math.round(newNoneAccountHolder)]
     // console.log(newAccountHolder, newNoneAccountHolder)
     console.log(achieved_percentage.value)
@@ -128,8 +134,8 @@ watch(
       </div>
       <div v-if="useDataStore().loader">
         <div
-          v-if="useDataStore().achieved > 0 && achieved_percentage > 0"
           class="flex flex-col justify-center gap-[10px] h-[60%] mt-[55px]"
+          v-if="useDataStore().achieved > 0 && useDataStore().total_sample > 0"
         >
           <span class="flex items-center justify-evenly text-lg mb-3 font-medium">
             <div class="space-y-8">

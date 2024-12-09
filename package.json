@@ -46,6 +46,7 @@
     "vee-validate": "^4.13.2",
     "vue": "^3.3.11",
     "vue-loader": "^17.4.2",
+    "vue-loading-overlay": "^6.0.6",
     "vue-router": "^4.2.5",
     "vue-spinner": "^1.0.4",
     "vue-toastification": "^2.0.0-rc.5",

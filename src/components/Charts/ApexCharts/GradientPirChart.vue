@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useDataStore } from '@/stores/data'
-import { ref, watch } from 'vue'
+import { onMounted, ref, watch } from 'vue'
 // @ts-ignore
 import VueApexCharts from 'vue3-apexcharts'
 import { PulseLoader } from 'vue-spinner/dist/vue-spinner.min.js'
@@ -86,7 +86,7 @@ const data = ref({
       }
     },
     colors: ['#FABB3D', 'red'], // Base colors for each series
-    labels: ['New to bank customer', 'Existing customers'],
+    labels: ['New to bank customers', 'Existing customers'],
     legend: {
       show: true,
       position: 'bottom',
@@ -116,11 +116,16 @@ const data = ref({
     ]
   }
 })
-
+onMounted(() => {
+  console.log(useDataStore().new_customer)
+  console.log(useDataStore().old_customer)
+})
 watch(
   () => [useDataStore().new_customer, useDataStore().old_customer],
   ([new_customer, old_customer]) => {
     data.value.series = [new_customer, old_customer]
+    console.log(useDataStore().new_customer)
+    console.log(useDataStore().old_customer)
   }
 )
 </script>
@@ -137,7 +142,7 @@ watch(
       </div>
     </div>
 
-    <div class="mb-2" v-if="useDataStore().new_customer > 0 && useDataStore().old_customer > 0">
+    <div class="mb-2" v-if="useDataStore().new_customer > 0 || useDataStore().old_customer > 0">
       <div id="TreeMap" class="mx-auto flex justify-center item-center">
         <VueApexCharts
           type="donut"

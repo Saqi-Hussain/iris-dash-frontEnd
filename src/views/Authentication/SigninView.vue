@@ -2,13 +2,12 @@
 import DefaultAuthCard from '@/components/Auths/DefaultAuthCard.vue'
 import InputGroup from '@/components/Auths/InputGroup.vue'
 import { useToast } from 'vue-toastification'
-import { onMounted, ref } from 'vue'
+import { ref } from 'vue'
 import axios from 'axios'
 import router from '@/router'
 import { useAuthStore } from '@/stores/auth'
 import { PulseLoader } from 'vue-spinner/dist/vue-spinner.min.js'
 
-import { Modal } from 'ant-design-vue'
 const toast = useToast()
 const form = ref({
   email: '',
@@ -20,11 +19,7 @@ const formReset = () => {
     password: ''
   }
 }
-const password = ref('')
-const newPassword = ref('')
-const fetchCsrfToken = async () => {
-  await axios.get('/sanctum/csrf-cookie')
-}
+
 const modalText = ref('')
 const open = ref(false)
 const confirmLoading = ref(false)
@@ -33,81 +28,7 @@ const showModal = () => {
   console.log(open.value)
 }
 
-const handleOk = async () => {
-  try {
-    await fetchCsrfToken()
-
-    // Set the CSRF token in Axios headers
-    const csrfToken = getCookie('XSRF-TOKEN')
-    axios.defaults.headers.common['X-XSRF-TOKEN'] = csrfToken
-
-    const response = await axios.post(`${import.meta.env.VITE_APP_ENDPOINT}resetPassword`, {
-      user_id: useAuthStore().userId,
-      old_password: formData.value.password,
-      new_password: formData.value.newPassword
-    })
-
-    if (response.data.message === 'Password changed successfully') {
-      toast.success('Password changed successfully', {
-        timeout: 1500,
-        closeOnClick: true,
-        pauseOnFocusLoss: true,
-        pauseOnHover: false,
-        draggable: true,
-        draggablePercent: 0.6,
-        showCloseButtonOnHover: false,
-        hideProgressBar: false,
-        closeButton: 'button',
-        icon: true,
-        rtl: false,
-        position: 'bottom-right'
-      })
-      // modalText.value = 'Password changed successfully'
-      confirmLoading.value = false
-      open.value = false
-    } else {
-      // modalText.value = 'Password change failed'
-      toast.error('Password change failed', {
-        timeout: 2500,
-        closeOnClick: true,
-        pauseOnFocusLoss: true,
-        pauseOnHover: true,
-        draggable: true,
-        draggablePercent: 0.6,
-        showCloseButtonOnHover: false,
-        hideProgressBar: false,
-        closeButton: 'button',
-        icon: true,
-        rtl: false,
-        position: 'bottom-right'
-      })
-      confirmLoading.value = false
-    }
-  } catch (error) {
-    toast.error('Current password is incorrect', {
-      timeout: 1500,
-      closeOnClick: true,
-      pauseOnFocusLoss: true,
-      pauseOnHover: true,
-      draggable: true,
-      draggablePercent: 0.6,
-      showCloseButtonOnHover: false,
-      hideProgressBar: false,
-      closeButton: 'button',
-      icon: true,
-      rtl: false,
-      position: 'bottom-right'
-    })
-  }
-}
 const loading = ref(false)
-
-const getToken = async () => {
-  // Add the CSRF token to all Axios requests
-  return await axios.get('/sanctum/csrf-cookie').then((response) => {
-    return console.log(response)
-  })
-}
 
 // Utility function to get the value of a cookie by name
 function getCookie(name: string): string | undefined {
@@ -123,7 +44,7 @@ const handlesubmit = async () => {
 
   try {
     // First, ensure CSRF token is retrieved
-    await getToken()
+    // await getToken()
 
     // Then make the login request
     const response = await axios.post(`${import.meta.env.VITE_APP_ENDPOINT}login`, form.value)
@@ -163,14 +84,8 @@ const handlesubmit = async () => {
       hideProgressBar: false,
       closeButton: 'button',
       icon: true,
-      rtl: false,
-      position: 'bottom-right'
+      rtl: false
     })
-    // toast({
-    //   description: 'Login Successfully',
-    //   class: 'bg-green-500 text-white font-bold',
-    //   duration: 1000
-    // })
 
     loading.value = false
     formReset()
@@ -195,8 +110,7 @@ const handlesubmit = async () => {
         hideProgressBar: false,
         closeButton: 'button',
         icon: true,
-        rtl: false,
-        position: 'bottom-right'
+        rtl: false
       })
     } else {
       toast.error('Error in login in', {
@@ -210,8 +124,7 @@ const handlesubmit = async () => {
         hideProgressBar: false,
         closeButton: 'button',
         icon: true,
-        rtl: false,
-        position: 'bottom-right'
+        rtl: false
       })
     }
 
@@ -306,58 +219,7 @@ const handleCancel = () => {
         <div @click="showModal" class="cursor-pointer hover:text-[#455984] mt-5">
           Reset password?
         </div>
-        <div>
-          <Modal
-            v-model:open="open"
-            title="Change Password"
-            :confirm-loading="confirmLoading"
-            @ok="handleOk"
-            @cancel="handleCancel"
-          >
-            {{ modalText }}
-            <div class="mt-5">
-              <h1 class="text-sm">Current Password</h1>
-              <Input
-                v-model="password"
-                type="text"
-                name="currentPassword"
-                id="currentPassword"
-                placeholder="************"
-              />
-              <!-- <input
-                    v-model="formData.password"
-                    class="w-full rounded border border-stroke bg-gray py-3 px-4.5 font-normal text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
-                    type="text"
-                    name="confirmPassword"
-                    id="confirmPassword"
-                    placeholder="************"
-                  /> -->
-            </div>
-            <div class="my-3">
-              <h1 class="text-sm">New Password</h1>
-              <Input
-                v-model="newPassword"
-                type="password"
-                name="newPassword"
-                id="newPassword"
-                placeholder="************"
-              />
-              <!-- <input
-                    v-model="formData.newPassword"
-                    class="w-full rounded border border-stroke bg-gray py-3 px-4.5 font-normal text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
-                    type="text"
-                    name="newPassword"
-                    id="newPassword"
-                    placeholder="************"
-                  /> -->
-            </div>
-
-            <template #footer>
-              <Button @click="handleCancel" class="mr-2 bg-red-500 hover:bg-red-600">Cancel</Button>
-              <Button @click="handleOk" class="bg-[#455984] hover:bg-[#394a6e]">OK</Button>
-            </template>
-          </Modal>
-        </div>
+        <div></div>
       </form>
     </DefaultAuthCard>
   </div>

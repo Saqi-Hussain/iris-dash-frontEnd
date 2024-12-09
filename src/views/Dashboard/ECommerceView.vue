@@ -10,10 +10,14 @@ import TimelineChart from '@/components/Charts/ApexCharts/TimelineChart.vue'
 import Guage from '@/components/Charts/ECharts/Guage.vue'
 import GradientPirChart from '@/components/Charts/ApexCharts/GradientPirChart.vue'
 import CustomDropdown from '@/components/DropDown/DropDown.vue'
-import { ref, type Ref } from 'vue'
+import { computed, ref, type Ref } from 'vue'
 import VBarChart from '@/components/Charts/ApexCharts/VBarChart.vue'
 import { useAuthStore } from '@/stores/auth'
 import datePicker from '@/components/ui/datePicker.vue/datePicker.vue'
+import { useBigDataStore } from '@/stores/bigData'
+import router from '@/router'
+
+const bigDataStore = useBigDataStore()
 
 const date = ref()
 const dataStore = useDataStore()
@@ -93,10 +97,6 @@ function setFilter(filter: string, value: string) {
   }
 }
 
-// function filterRemoved() {
-//   dataStore.clearFilters()
-// }
-
 // Clear filters
 function filterRemoved() {
   selectedBranch.value = ''
@@ -108,25 +108,25 @@ function filterRemoved() {
   customerType.value = 'Choose a customer type'
   purposeOfVisit.value = 'Choose a purpose of visit'
   BranchType.value = 'Choose a branch type'
+  //reload the page
+  // window.location.reload() // just becasue we have to reloa the line graph due to time
 }
 
 const start = new Date()
 const end = new Date(new Date().setDate(start.getDate() + 1))
-// onMounted(() => {
-//   const startDate = new Date();
-//   const endDate = new Date(new Date().setDate(startDate.getDate() + 0));
-//   date.value = [startDate, endDate];
-// })
+
 const value = ref({
   start,
   end
 }) as Ref<any>
+
+const filteredBranches = computed(() => bigDataStore.branches[selectedCity.value] || [])
 </script>
 
 <template>
   <DefaultLayout>
     <div>
-      <div class="grid lg:grid-cols-6 md:grid-cols-2 grid-cols-1 justify-between gap-2 flex-wrap">
+      <div class="grid lg:grid-cols-6 md:grid-cols-2 grid-cols-1 justify-between gap-1 flex-wrap">
         <div v-if="selectedBranch === 'Z Block DHA Phase III, Lahore'">
           <label
             for="city-filter"
@@ -177,14 +177,14 @@ const value = ref({
             City
           </label>
           <CustomDropdown
-            :options="['Lahore', 'Karachi', 'Islamabad']"
+            :options="['Lahore', 'Karachi', 'Islamabad', 'Faisalabad', 'Multan']"
             placeholder="Choose a city"
             v-model="city"
             @update:modelValue="filterByCity"
           />
         </div>
 
-        <div>
+        <!-- <div>
           <div v-if="selectedCity === 'Karachi'">
             <label
               for="branch-filter"
@@ -245,7 +245,31 @@ const value = ref({
               @update:modelValue="(value) => setFilter('branch', value)"
             />
           </div>
-        </div>
+        </div> -->
+        <Transition name="bounce">
+          <div
+            v-if="
+              selectedCity === 'Karachi' ||
+              selectedCity === 'Lahore' ||
+              selectedCity === 'Islamabad' ||
+              selectedCity === 'Faisalabad' ||
+              selectedCity === 'Multan'
+            "
+          >
+            <label
+              for="branch-filter"
+              class="block text-base font-bold text-gray-900 dark:text-white ml-2"
+            >
+              Branch
+            </label>
+            <CustomDropdown
+              :options="filteredBranches"
+              placeholder="Choose a branch"
+              v-model="branch"
+              @update:modelValue="(value) => setFilter('branch', value)"
+            />
+          </div>
+        </Transition>
 
         <div>
           <label

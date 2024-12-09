@@ -8,6 +8,12 @@ import { ModuleRegistry } from '@ag-grid-community/core'
 import { ExcelExportModule } from '@ag-grid-enterprise/excel-export'
 import 'ag-grid-enterprise'
 import Button from '../ui/button/Button.vue'
+// import { GridApi } from '@ag-grid-community/core'
+// import { GridApi } from 'ag-grid-enterprise'
+// Use type-only import for GridApi
+import type { GridApi } from 'ag-grid-enterprise'
+
+const gridApi = ref<GridApi | null>(null) // or whatever type you are using
 
 // Define the RowData interface
 interface RowData {
@@ -25,14 +31,14 @@ interface RowData {
   widrawing_money: string
   opening_new_acc: string
   deposit: string
-  Update_personal_info: string
+  update_personal_info: string
   closing_acc: string
-  transfering_fund: string
+  transferring_fund: string
   loan_service: string
-  Complain_resolution: string
-  Foreign_echange: string
+  complain_resolution: string
+  foreign_exchange: string
   credit_card: string
-  Investment_service: string
+  investment_service: string
   financial_advice: string
   customer_support: string
   digital_banking: string
@@ -48,6 +54,13 @@ interface RowData {
   credit_card_payment: string
   Date: string
   turn_around_time_mins: string
+  biometric_purpose: string
+  tax_payment: string
+  info_new_account: string
+  reactivation_dormant_acc: string
+  policy_cancellation: string
+  receive_maintenance_certificate: string
+  activation_atm_card: string
 }
 
 // Register the Excel export module
@@ -55,7 +68,7 @@ ModuleRegistry.registerModules([ExcelExportModule])
 
 const dataStore = useDataStore()
 
-const gridApi = ref(null)
+// const gridApi = ref(null)
 const excelStyles = ref()
 // Sample Data
 const rowData = ref<RowData[]>([]) // Specify the type here
@@ -160,7 +173,7 @@ const colDefs = ref([
   },
   { field: 'deposit', headerName: 'Deposit', filter: 'agTextColumnFilter', cellClass: 'data' },
   {
-    field: 'Update_personal_info',
+    field: 'update_personal_info',
     headerName: 'Update Personal Info',
     filter: 'agTextColumnFilter',
     cellClass: 'data'
@@ -172,7 +185,7 @@ const colDefs = ref([
     cellClass: 'data'
   },
   {
-    field: 'transfering_fund',
+    field: 'transferring_fund',
     headerName: 'Transferring Fund',
     filter: 'agTextColumnFilter',
     cellClass: 'data'
@@ -184,13 +197,13 @@ const colDefs = ref([
     cellClass: 'data'
   },
   {
-    field: 'Complain_resolution',
+    field: 'complain_resolution',
     headerName: 'Complain Resolution',
     filter: 'agTextColumnFilter',
     cellClass: 'data'
   },
   {
-    field: 'Foreign_echange',
+    field: 'foreign_exchange',
     headerName: 'Foreign Exchange',
     filter: 'agTextColumnFilter',
     cellClass: 'data'
@@ -202,7 +215,7 @@ const colDefs = ref([
     cellClass: 'data'
   },
   {
-    field: 'Investment_service',
+    field: 'investment_service',
     headerName: 'Investment Service',
     filter: 'agTextColumnFilter',
     cellClass: 'data'
@@ -285,12 +298,83 @@ const colDefs = ref([
     filter: 'agTextColumnFilter',
     cellClass: 'data'
   },
-  { field: 'Date', headerName: 'Date', filter: 'agTextColumnFilter', cellClass: 'data' },
+  {
+    field: 'biometric_purpose',
+    headerName: 'Biometric Purpose',
+    width: 200, // Adjust width as needed
+    filter: 'agTextColumnFilter',
+    cellClass: 'data'
+  },
+  {
+    field: 'tax_payment',
+    headerName: 'Tax Payment',
+    width: 150, // Adjust width as needed
+    filter: 'agTextColumnFilter',
+    cellClass: 'data'
+  },
+  {
+    field: 'info_new_account',
+    headerName: 'Info New Account',
+    width: 200, // Adjust width as needed
+    filter: 'agTextColumnFilter',
+    cellClass: 'data'
+  },
+  {
+    field: 'reactivation_dormant_acc',
+    headerName: 'Reactivation Dormant Acc',
+    width: 250, // Adjust width as needed
+    filter: 'agTextColumnFilter',
+    cellClass: 'data'
+  },
+  {
+    field: 'policy_cancellation',
+    headerName: 'Policy Cancellation',
+    width: 200, // Adjust width as needed
+    filter: 'agTextColumnFilter',
+    cellClass: 'data'
+  },
+  {
+    field: 'receive_maintenance_certificate',
+    headerName: 'Receive Maintenance Certificate',
+    width: 250, // Adjust width as needed
+    filter: 'agTextColumnFilter',
+    cellClass: 'data'
+  },
+  {
+    field: 'activation_atm_card',
+    headerName: 'Activation ATM Card',
+    width: 200, // Adjust width as needed
+    filter: 'agTextColumnFilter',
+    cellClass: 'data'
+  },
+  {
+    field: 'Date',
+    headerName: 'Date of field data',
+    filter: 'agTextColumnFilter',
+    cellClass: 'data'
+  },
   {
     field: 'turn_around_time_mins',
     headerName: 'Turnaround Time (Mins)',
     filter: 'agTextColumnFilter',
-    cellClass: 'data'
+    cellClass: 'data',
+    valueFormatter: (params: any) => {
+      return params.value === '1'
+        ? 'Less than 10 minutes'
+        : params.value === '2'
+          ? '10 – 15 minutes'
+          : params.value === '3'
+            ? '16 – 20 minutes'
+            : params.value === '4'
+              ? '21 – 25 minutes'
+              : params.value === '5'
+                ? '26 – 30 minutes'
+                : params.value === '6'
+                  ? '31 – 45 minutes'
+                  : params.value === '7'
+                    ? '46 – 60 minutes'
+                    : 'More than 60 minutes'
+    }
   }
 ])
 
@@ -320,7 +404,9 @@ const onBtExport = () => {
   }
 }
 
-const paginationPageSizeSelector = [10, 20, 50, 100, 200, 500]
+const paginationPageSizeSelector = [
+  10, 20, 50, 100, 200, 500, 750, 1000, 1500, 2000, 3000, 5000, 7500
+]
 
 onMounted(() => {
   dataStore.data.forEach((element: any) => {
@@ -431,14 +517,14 @@ onMounted(() => {
 </template>
 
 <style scoped>
-::v-deep .ag-header-cell {
+:deep .ag-header-cell {
   background-color: #455984 !important;
   color: white !important; /* For text color */
 }
-::v-deep .ag-icon-menu-alt::before {
+:deep .ag-icon-menu-alt::before {
   color: white !important;
 }
-::v-deep .ag-icon-filter::before {
+:deep .ag-icon-filter::before {
   color: #f3989d !important;
 }
 </style>

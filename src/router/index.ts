@@ -19,6 +19,7 @@ import FormElementsView from '@/views/Forms/FormElementsView.vue'
 import Import from '@/views/Import/Import.vue'
 import Export from '@/views/Forms/Export/Export.vue'
 import DataFetcher from '@/views/DataFetcher/DataFetcher.vue'
+import Clear from '@/views/Clear/Clear.vue'
 // import other views as needed...
 
 const routes = [
@@ -195,7 +196,18 @@ const routes = [
       requiresAuth: true,
       // requiresAdmin: true // Only admin can access
     }
+  },
+  {
+    path: '/clear',
+    name: 'clear',
+    component: Clear,
+    meta: {
+      title: 'clear',
+      requiresAuth: true,
+      // requiresAdmin: true // Only admin can access
+    }
   }
+
   // Uncomment and add other routes as needed...
 ]
 

@@ -329,6 +329,13 @@ const menuGroups = ref([
         //   { label: 'Basic Chart', route: '/charts/basic-chart' },
         //   { label: 'Apex Chart', route: '/charts/apex-chart' }
         // ]
+      },
+      {
+        icon: `
+          <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="m9.4 16.5l2.6-2.6l2.6 2.6l1.4-1.4l-2.6-2.6L16 9.9l-1.4-1.4l-2.6 2.6l-2.6-2.6L8 9.9l2.6 2.6L8 15.1zM7 21q-.825 0-1.412-.587T5 19V6H4V4h5V3h6v1h5v2h-1v13q0 .825-.587 1.413T17 21z"></path></svg>
+        `,
+        label: 'Clear',
+        route: '/clear'
       }
     ]
   }
@@ -337,7 +344,7 @@ const menuGroups = ref([
 
 <template>
   <aside
-    class="absolute left-0 top-0 z-9999 flex h-screen flex-col overflow-y-hidden bg-[#455984] bg-gradient-to-t from-[#455984] to-white duration-300 ease-linear dark:bg-boxdark lg:static lg:translate-x-0 shadow-3"
+    class="absolute left-0 top-0 z-[9999] flex h-screen flex-col overflow-y-hidden bg-[#455984] bg-gradient-to-t from-[#455984] to-white duration-300 ease-linear dark:bg-boxdark lg:static lg:translate-x-0 shadow-3"
     :class="{
       'translate-x-0': sidebarStore.isSidebarOpen,
       '-translate-x-full': !sidebarStore.isSidebarOpen

@@ -30,7 +30,7 @@ export const useAuthStore = defineStore({
                 if (response.status === 200) {
                   console.log('response data avatar_link = ',response.data.avatar_link);
                   this.userAvatar = response.data.avatar_link;
-                  this.userAvatar = `http://127.0.0.1:8000${response.data.avatar_link}`;
+                  this.userAvatar = `${import.meta.env.VITE_APP_ENDPOINT}${response.data.avatar_link}`;
                 } else {
                   console.error('Failed to fetch user profile:', response);
                 }

@@ -1,21 +1,33 @@
 <template>
-  <div class="relative">
+  <div class="relative" ref="dropdownRef">
+    <!-- Add ref here -->
     <button @click="toggleDropdown" class="dropdown-button">
       {{ selected || 'Choose an option' }}
       <span class="arrow" :class="{ open: isOpen }">&#9662;</span>
     </button>
+
     <transition name="fade">
-      <ul v-if="isOpen" class="dropdown-menu">
-        <li v-for="option in options" :key="option" @click="selectOption(option)">
-          {{ option }}
-        </li>
-      </ul>
+      <div v-if="isOpen" class="dropdown-menu-container">
+        <Input
+          type="text"
+          v-model="searchQuery"
+          placeholder="Search ..."
+          class="focus:border-none rounded-none"
+        />
+        <ul class="dropdown-menu">
+          <li v-for="option in filteredOptions" :key="option" @click="selectOption(option)">
+            {{ option }}
+          </li>
+          <li v-if="filteredOptions.length === 0" class="no-results">No results found</li>
+        </ul>
+      </div>
     </transition>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, watch, onMounted, onUnmounted } from 'vue'
+import { ref, watch, onMounted, onUnmounted, computed } from 'vue'
+import Input from '../ui/input/Input.vue'
 
 const props = defineProps<{
   options: string[]
@@ -27,18 +39,29 @@ const emit = defineEmits(['update:modelValue'])
 const isOpen = ref(false)
 const selected = ref(props.modelValue)
 const dropdownRef = ref<HTMLElement | null>(null)
+const searchQuery = ref('') // Holds the user's search query
 
+// Function to toggle the dropdown visibility
 function toggleDropdown() {
   isOpen.value = !isOpen.value
 }
 
+// Function to select an option
 function selectOption(option: string) {
   selected.value = option
   emit('update:modelValue', option)
   setTimeout(() => {
     isOpen.value = false
-  }, 150) // Delay to prevent immediate reopening
+    searchQuery.value = '' // Reset search when selecting
+  }, 150)
 }
+
+// Computed property to filter the options based on the search query
+const filteredOptions = computed(() => {
+  return props.options.filter((option) =>
+    option.toLowerCase().includes(searchQuery.value.toLowerCase())
+  )
+})
 
 // Watch for changes in the modelValue prop
 watch(
@@ -70,6 +93,7 @@ onUnmounted(() => {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  /* flex-wrap: wrap; */
   padding: 10px 15px;
   border: 1px solid #ccc;
   border-radius: 10px;
@@ -78,14 +102,56 @@ onUnmounted(() => {
   cursor: pointer;
   width: 100%;
   text-align: left;
-  font-size: 15px;
+  font-size: 13.2px;
   transition: border-color 0.2s ease-in-out;
   margin-top: 5px;
-  text-wrap: none;
 }
 
-.dropdown-button:hover {
-  border-color: #007bff;
+.dropdown-menu-container {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  z-index: 90;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  margin-top: 5px;
+  max-height: 250px;
+  overflow-y: auto;
+}
+
+.search-input {
+  width: 100%;
+  padding: 8px;
+  border: none;
+  border-bottom: 1px solid #ccc;
+  outline: none;
+  font-size: 14px;
+}
+
+.dropdown-menu {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.dropdown-menu li {
+  padding: 10px;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.dropdown-menu li:hover {
+  background-color: #455984;
+  color: #fff;
+}
+
+.no-results {
+  padding: 10px;
+  color: #888;
+  text-align: center;
 }
 
 .arrow {
@@ -97,41 +163,11 @@ onUnmounted(() => {
   transform: rotate(-180deg);
 }
 
-.dropdown-menu {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  right: 0;
-  z-index: 90;
-  background-color: #fff;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  padding: 0;
-  margin: 0;
-  list-style: none;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
-  font-size: 14px;
-  font-weight: 600;
-  margin-top: 5px;
-  /* width: 100%; */
-}
-
-.dropdown-menu li {
-  padding: 5px 15px;
-  cursor: pointer;
-  transition: background-color 0.2s ease-in-out;
-}
-
-.dropdown-menu li:hover {
-  background-color: #455984;
-  color: #fff;
-}
-
 .fade-enter-active,
 .fade-leave-active {
   transition: opacity 0.2s ease-in-out;
 }
+
 .fade-enter,
 .fade-leave-to {
   opacity: 0;

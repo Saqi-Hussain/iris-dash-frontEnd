@@ -64,7 +64,7 @@ export const useDataStore = defineStore({
     filteredData: [] as DataItem[], // To store the data after applying filters
     malePercentage: 0,
     femalePercentage: 0,
-    total_sample: 60,
+    total_sample: 6000,
     achieved: 0,
     account_holder: 0,
     none_account_holder: 0,
@@ -149,7 +149,8 @@ export const useDataStore = defineStore({
   actions: {
     async fetchData() {
       try {
-        const response = await axios.get(`${import.meta.env.VITE_APP_ENDPOINT}get-gender`)
+        const response = await  axios.get(`${import.meta.env.VITE_APP_ENDPOINT}get-gender`)
+        // console.log('in try block');
         this.data = response.data
         this.originalData = [...response.data] // Store original data
         // if (this.originalData.length > 0) {
@@ -798,10 +799,10 @@ export const useDataStore = defineStore({
       this.filters.withdrawal = ''
       this.filters.payment_dues = ''
       this.filters.cheque_deposit = ''
-      this.filteredData = [...this.originalData]
       this.startDate = ''
       this.endDate = ''
       this.filters.branchType = ''
+      this.filteredData = [...this.originalData]
       this.updateStatistics()
       this.getOverallTop2ArrayByDate()
       this.updateTop5Array()

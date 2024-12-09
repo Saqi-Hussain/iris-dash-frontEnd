@@ -23,6 +23,7 @@ const calendarRef = ref(null)
 // Define the calendar options reactively
 const calendarOptions = reactive({
   plugins: [dayGridPlugin, interactionPlugin],
+
   initialView: 'dayGridMonth',
   dateClick: handleDateClick,
   headerToolbar: {

@@ -65,8 +65,7 @@ const handleOk = async () => {
         hideProgressBar: false,
         closeButton: 'button',
         icon: true,
-        rtl: false,
-        position: 'bottom-right'
+        rtl: false
       })
       // modalText.value = 'Password changed successfully'
       confirmLoading.value = false
@@ -84,8 +83,7 @@ const handleOk = async () => {
         hideProgressBar: false,
         closeButton: 'button',
         icon: true,
-        rtl: false,
-        position: 'bottom-right'
+        rtl: false
       })
       confirmLoading.value = false
     }
@@ -101,8 +99,7 @@ const handleOk = async () => {
       hideProgressBar: false,
       closeButton: 'button',
       icon: true,
-      rtl: false,
-      position: 'bottom-right'
+      rtl: false
     })
   }
 }
@@ -147,8 +144,7 @@ const handlePhotoSubmit = async () => {
       hideProgressBar: false,
       closeButton: 'button',
       icon: true,
-      rtl: false,
-      position: 'bottom-right'
+      rtl: false
     })
     useAuthStore().fetchImg()
   } catch (error: any) {
@@ -164,8 +160,7 @@ const handlePhotoSubmit = async () => {
       hideProgressBar: false,
       closeButton: 'button',
       icon: true,
-      rtl: false,
-      position: 'bottom-right'
+      rtl: false
     })
     alert('Error uploading photo: ' + error.response.data.message)
   }

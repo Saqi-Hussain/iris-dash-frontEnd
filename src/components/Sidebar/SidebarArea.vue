@@ -308,7 +308,7 @@ const menuGroups = ref([
 
 <template>
   <aside
-    class="absolute left-0 top-0 z-9999 flex h-screen flex-col overflow-y-hidden bg-slate-200 duration-300 ease-linear dark:bg-boxdark lg:static lg:translate-x-0 shadow-3"
+    class="absolute left-0 top-0 z-[9999] flex h-screen flex-col overflow-y-hidden bg-[#455984] bg-gradient-to-t from-[#455984] to-white duration-300 ease-linear dark:bg-boxdark lg:static lg:translate-x-0 shadow-3"
     :class="{
       'translate-x-0': sidebarStore.isSidebarOpen,
       '-translate-x-full': !sidebarStore.isSidebarOpen
@@ -322,7 +322,7 @@ const menuGroups = ref([
           src="@/assets/images/logo/logo.png"
           class="h-[120px] w-[120px]"
           alt="Logo"
-          style="filter: drop-shadow(2px 8px 50px white)"
+          style="filter: drop-shadow(1px 1px 8px white)"
         />
       </router-link>
 
@@ -347,9 +347,11 @@ const menuGroups = ref([
     <div class="no-scrollbar flex flex-col overflow-y-auto duration-300 ease-linear">
       <!-- Sidebar Menu -->
       <nav class="mt-5 py-4 lg:mt-9">
-        <template v-for="menuGroup in menuGroups" :key="menuGroup.name">
+        <template v-for="(menuGroup, index) in menuGroups" :key="menuGroup.name">
           <div>
-            <h3 class="mb-4 ml-6 text-sm font-bold text-black">{{ menuGroup.name }}</h3>
+            <h3 class="mb-4 ml-6 text-sm font-bold text-[#1a1717]">
+              {{ menuGroup.name }}
+            </h3>
 
             <ul class="mb-6 flex flex-col gap-1.5">
               <SidebarItem
